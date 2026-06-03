@@ -3,35 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Year 7 Science — Physics: Forces</title>
+<title>Year 7 Science — Physics: Forces & Motion</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c2c2a;padding:1rem}
 .wrap{max-width:700px;margin:0 auto;padding-bottom:3rem}
-
 .hero{background:#2d1b69;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
 .hero h1{font-size:20px;font-weight:500;color:white;margin-bottom:4px}
 .hero p{font-size:13px;color:rgba(255,255,255,0.8)}
 .hero .bs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .hero .b{background:rgba(255,255,255,0.18);border-radius:20px;padding:3px 10px;font-size:11px;color:white}
 .ac{display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:500;margin-bottom:8px}
-
 .nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:1.25rem}
-.nb{padding:6px 14px;border:1px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;background:white;color:#5f5e5a;transition:all 0.15s}
+.nb{padding:6px 12px;border:1px solid #ccc;border-radius:20px;font-size:11px;cursor:pointer;background:white;color:#5f5e5a;transition:all 0.15s}
 .nb.active,.nb:hover{background:#2d1b69;color:white;border-color:#2d1b69}
-
 .sec{display:none}.sec.active{display:block}
-
 .card{background:white;border:1px solid #e0dfd8;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
 .card h2{font-size:15px;font-weight:500;color:#2c2c2a;margin-bottom:0.75rem}
 .card h3{font-size:13px;font-weight:500;color:#2c2c2a;margin-top:0.75rem;margin-bottom:0.4rem}
 .card p,.card li{font-size:13px;color:#5f5e5a;line-height:1.65}
 .card ul,.card ol{padding-left:1.2rem;margin-bottom:0.5rem}
 .card li{margin-bottom:4px}
-
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
-@media(max-width:500px){.two{grid-template-columns:1fr}}
-
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem}
+@media(max-width:500px){.two,.three{grid-template-columns:1fr}}
 .eb{border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:13px;line-height:1.6;border-left:4px solid}
 .eb.purple{background:#F0EDFB;border-color:#2d1b69;color:#1a0e3d}
 .eb.green{background:#E6F5EE;border-color:#1a7a4a;color:#0d3d25}
@@ -40,27 +35,21 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .eb.blue{background:#EBF3FB;border-color:#1a4a8c;color:#0d2447}
 .eb.grey{background:#f5f4f0;border-color:#aaa;color:#2c2c2a}
 .eb strong{font-weight:600}
-
 .tip{background:#FDF3E3;border-radius:8px;padding:8px 12px;font-size:12px;color:#5a3c06;margin-top:0.5rem;line-height:1.5}
 .tip::before{content:"💡 "}
 .info-bar{background:#F0EDFB;border-radius:8px;padding:8px 12px;font-size:12px;color:#1a0e3d;margin-bottom:0.75rem;line-height:1.5}
-
-/* Force diagram builder */
+.fbox{background:#2d1b69;border-radius:10px;padding:1rem 1.25rem;margin:0.75rem 0;text-align:center}
+.fbox .ff{font-size:18px;font-weight:500;color:white;letter-spacing:0.3px}
+.fbox .fn{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
 .fd-wrap{border:1px solid #e0dfd8;border-radius:10px;overflow:hidden;margin:0.75rem 0}
 .fd-head{background:#f5f4f0;padding:8px 14px;font-size:13px;font-weight:500;border-bottom:1px solid #e0dfd8}
 .fd-body{padding:14px}
 .fd-canvas{position:relative;width:100%;height:220px;background:#fafaf8;border:1px solid #e0dfd8;border-radius:8px;overflow:hidden;margin-bottom:10px}
-.fd-obj{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:#2d1b69;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:500;text-align:center;z-index:2}
-.fd-arrow{position:absolute;display:flex;align-items:center;pointer-events:none;z-index:3}
-.fd-label{font-size:10px;font-weight:500;color:#2c2c2a;background:white;border:1px solid #e0dfd8;border-radius:4px;padding:1px 5px;white-space:nowrap;position:absolute}
 .fd-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .fd-ctrl{display:flex;align-items:center;gap:6px;font-size:12px;color:#5f5e5a}
 .fd-ctrl input[type=range]{width:80px}
 .fd-ctrl .val{min-width:30px;font-weight:500;color:#2d1b69}
 .fd-status{background:#2d1b69;border-radius:8px;padding:8px 12px;color:white;font-size:13px;font-weight:500;text-align:center;margin-top:8px}
-.fd-status .sub{font-size:11px;opacity:0.75;font-weight:400}
-
-/* Force type cards */
 .force-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.5rem}
 @media(max-width:480px){.force-grid{grid-template-columns:1fr}}
 .force-card{border:1px solid #e0dfd8;border-radius:10px;padding:10px 12px;cursor:pointer;transition:all 0.15s}
@@ -70,8 +59,6 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .contact{background:#E6F5EE;color:#0d3d25}
 .noncontact{background:#FDF3E3;color:#5a3c06}
 .force-card .fdesc{font-size:12px;color:#5f5e5a;line-height:1.4}
-
-/* Worked examples */
 .worked{border:1px solid #e0dfd8;border-radius:10px;overflow:hidden;margin-bottom:0.75rem}
 .worked-q{background:#2d1b69;padding:10px 14px;font-size:13px;font-weight:500;color:white;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .worked-q .chev{transition:transform 0.2s;font-size:12px}
@@ -83,13 +70,9 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .step-text{color:#2c2c2a;line-height:1.6;flex:1}
 .step-text .math{background:#f5f4f0;border-radius:4px;padding:1px 6px;font-family:monospace;font-size:13px;color:#2d1b69;font-weight:500}
 .answer{background:#E6F5EE;border-radius:6px;padding:8px 12px;font-size:13px;color:#0d3d25;font-weight:500;margin-top:6px}
-
-/* SVG force diagrams */
 .diagram-card{background:#fafaf8;border:1px solid #e0dfd8;border-radius:10px;padding:1rem;margin-bottom:0.75rem;text-align:center}
 .diagram-card .dname{font-size:13px;font-weight:500;color:#2c2c2a;margin-bottom:8px}
 .diagram-card .dtag{font-size:11px;color:#5f5e5a}
-
-/* Net force calculator */
 .nf-card{background:#f5f4f0;border-radius:10px;padding:1rem;margin-top:0.75rem;border:1px solid #e0dfd8}
 .nf-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px}
 .nf-row label{min-width:110px;font-size:12px;color:#5f5e5a}
@@ -98,8 +81,6 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .nf-row select{border:1px solid #ccc;border-radius:6px;padding:6px 8px;font-size:12px;font-family:inherit;outline:none}
 .nf-result{background:#2d1b69;border-radius:8px;padding:10px 14px;color:white;font-size:14px;font-weight:500;text-align:center;margin-top:4px}
 .nf-result .sub{font-size:11px;opacity:0.7;font-weight:400;display:block;margin-top:3px}
-
-/* Practice questions */
 .pq{border:1px solid #e0dfd8;border-radius:10px;overflow:hidden;margin-bottom:8px}
 .pq-q{padding:12px 14px;background:white;font-size:13px;color:#2c2c2a;font-weight:500;line-height:1.5}
 .pq-input-row{display:flex;gap:8px;padding:8px 14px;background:white;border-top:1px solid #f0efe8;align-items:center}
@@ -111,12 +92,10 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .pq-feedback.correct{background:#E6F5EE;color:#0d3d25}
 .pq-feedback.wrong{background:#FCEAEA;color:#5a1010}
 .pq-feedback.show{display:block}
-
-/* Quiz */
 .qbox{background:#f5f4f0;border-radius:10px;padding:1rem;margin-bottom:0.75rem}
 .qbox p{font-size:14px;font-weight:500;color:#2c2c2a;margin-bottom:0.75rem;line-height:1.5}
 .qopts{display:flex;flex-direction:column;gap:5px}
-.qo{padding:8px 12px;border:1px solid #ccc;border-radius:8px;font-size:13px;cursor:pointer;background:white;color:#5f5e5a;text-align:left;transition:all 0.1s}
+.qo{padding:8px 12px;border:1px solid #ccc;border-radius:8px;font-size:13px;cursor:pointer;background:white;color:#5f5e5a;text-align:left}
 .qo:hover{background:#f5f4f0}
 .qo.correct{background:#E6F5EE;border-color:#1a7a4a;color:#0d3d25}
 .qo.wrong{background:#FCEAEA;border-color:#b83232;color:#5a1010}
@@ -129,36 +108,32 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .sl{font-size:12px;color:#5f5e5a}
 .rbtn{width:100%;padding:9px;background:white;border:1px solid #ccc;border-radius:8px;font-size:13px;cursor:pointer;color:#5f5e5a}
 .rbtn:hover{background:#f5f4f0}
-
-/* Checklist */
 .cl{list-style:none;padding:0}
 .cl li{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#5f5e5a;padding:7px 0;border-bottom:1px solid #e0dfd8;line-height:1.5;cursor:pointer}
 .cl li:last-child{border-bottom:none}
 .cl li::before{content:"○";color:#ccc;flex-shrink:0;margin-top:1px}
 .cl li.done::before{content:"●";color:#1a7a4a}
 .cl li.done{color:#aaa;text-decoration:line-through}
-
 .chip{display:inline-block;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:500;margin:2px}
 .cv{background:#F0EDFB;color:#2d1b69}
 .cg{background:#E6F5EE;color:#0d3d25}
 .ca{background:#FDF3E3;color:#5a3c06}
 .cb{background:#EBF3FB;color:#0d2447}
+.cr{background:#FCEAEA;color:#5a1010}
+.lever-card{border:1px solid #e0dfd8;border-radius:10px;padding:12px;margin-bottom:8px}
+.lever-card .lclass{font-size:12px;font-weight:600;margin-bottom:4px}
+.lever-card .lorder{font-size:12px;color:#5f5e5a;margin-bottom:4px;font-family:monospace;background:#f5f4f0;padding:3px 8px;border-radius:4px;display:inline-block}
+.lever-card .lexamples{font-size:12px;color:#5f5e5a;line-height:1.5}
 </style>
 </head>
 <body>
 <div class="wrap">
-
 <div class="hero">
   <div class="ac">AC9S7U04</div>
-  <h1>Year 7 Science — Physics: Forces</h1>
-  <p>Queensland Curriculum · Australian Curriculum v9.0</p>
+  <h1>Year 7 Science — Physics: Forces &amp; Motion</h1>
+  <p>Queensland Curriculum · Based on your teacher's revision sheet</p>
   <div class="bs">
-    <span class="b">Types of forces</span>
-    <span class="b">Balanced &amp; unbalanced</span>
-    <span class="b">Net force</span>
-    <span class="b">Gravity &amp; weight</span>
-    <span class="b">Force diagrams</span>
-    <span class="b">Mass &amp; motion</span>
+    <span class="b">Types of forces</span><span class="b">Balanced &amp; unbalanced</span><span class="b">Net force</span><span class="b">Gravity &amp; weight</span><span class="b">Force diagrams</span><span class="b">Speed = D/T</span><span class="b">F = ma</span><span class="b">Levers</span><span class="b">Inertia</span>
   </div>
 </div>
 
@@ -168,7 +143,10 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
   <button class="nb" onclick="show('balanced',this)">Balanced &amp; unbalanced</button>
   <button class="nb" onclick="show('gravity',this)">Gravity &amp; weight</button>
   <button class="nb" onclick="show('diagrams',this)">Force diagrams</button>
-  <button class="nb" onclick="show('motion',this)">Mass &amp; motion</button>
+  <button class="nb" onclick="show('speed',this)">Speed = D/T</button>
+  <button class="nb" onclick="show('fma',this)">F = ma</button>
+  <button class="nb" onclick="show('levers',this)">Levers &amp; machines</button>
+  <button class="nb" onclick="show('motion',this)">Inertia &amp; motion</button>
   <button class="nb" onclick="show('practice',this)">Practice</button>
   <button class="nb" onclick="show('quiz',this)">Quiz</button>
   <button class="nb" onclick="show('checklist',this)">Checklist</button>
@@ -177,38 +155,29 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <!-- ═══ OVERVIEW ═══ -->
 <div id="sec-overview" class="sec active">
   <div class="card">
-    <h2>Big picture — what is this topic about?</h2>
-    <div class="eb purple">
-      A <strong>force</strong> is a push or a pull. Forces can change the speed, direction or shape of an object. This topic is all about understanding how forces act on objects and how they affect motion.
+    <h2>What you need to know for the exam</h2>
+    <p>Based on your teacher's revision sheet, you need to cover:</p>
+    <div class="two" style="margin-top:0.75rem">
+      <div class="eb purple"><strong>Forces basics</strong><br>Contact vs non-contact, types of forces, Newton meter</div>
+      <div class="eb green"><strong>Balanced &amp; unbalanced</strong><br>Definitions, net force calculations, force diagrams</div>
+      <div class="eb blue"><strong>Gravity &amp; weight</strong><br>Mass vs weight, W = m × g, terminal velocity</div>
+      <div class="eb amber"><strong>Speed = D ÷ T</strong><br>Formula triangle, calculating speed/distance/time</div>
+      <div class="eb red"><strong>F = ma</strong><br>Force = mass × acceleration calculations</div>
+      <div class="eb grey"><strong>Simple machines</strong><br>3 types, lever classes (1st/2nd/3rd), classifying examples</div>
     </div>
-    <p style="margin-top:0.5rem">The curriculum (AC9S7U04) says you need to be able to:</p>
-    <ul style="margin-top:0.5rem">
-      <li>Identify and describe different types of forces (contact and non-contact)</li>
-      <li>Represent forces using diagrams with arrows</li>
-      <li>Explain the difference between balanced and unbalanced forces</li>
-      <li>Calculate net force and determine its direction</li>
-      <li>Explain gravity and the difference between mass and weight</li>
-      <li>Relate changes in motion to mass, magnitude and direction of forces</li>
-    </ul>
   </div>
-
   <div class="card">
-    <h2>Key concepts at a glance</h2>
-    <div class="two">
-      <div class="eb purple"><strong>Force</strong><br>A push or pull that can change an object's speed, direction or shape. Measured in Newtons (N).</div>
-      <div class="eb green"><strong>Balanced forces</strong><br>Forces that are equal and opposite. The object does NOT change its motion.</div>
-      <div class="eb amber"><strong>Unbalanced forces</strong><br>Forces that are NOT equal. The object DOES change its motion — it speeds up, slows down or changes direction.</div>
-      <div class="eb blue"><strong>Net force</strong><br>The overall (resultant) force after all forces are added up. Determines what actually happens to the object.</div>
+    <h2>Key formulas</h2>
+    <div class="three">
+      <div style="text-align:center;padding:10px;background:#F0EDFB;border-radius:10px"><div style="font-size:16px;font-weight:600;color:#2d1b69">W = m × g</div><div style="font-size:11px;color:#5f5e5a;margin-top:2px">Weight</div></div>
+      <div style="text-align:center;padding:10px;background:#EBF3FB;border-radius:10px"><div style="font-size:16px;font-weight:600;color:#0d2447">S = D ÷ T</div><div style="font-size:11px;color:#5f5e5a;margin-top:2px">Speed</div></div>
+      <div style="text-align:center;padding:10px;background:#FCEAEA;border-radius:10px"><div style="font-size:16px;font-weight:600;color:#5a1010">F = m × a</div><div style="font-size:11px;color:#5f5e5a;margin-top:2px">Force</div></div>
     </div>
   </div>
-
   <div class="card">
     <h2>Key vocabulary</h2>
     <div style="display:flex;flex-wrap:wrap;gap:5px">
-      <span class="chip cv">Force</span><span class="chip cv">Newton (N)</span><span class="chip cv">Push</span><span class="chip cv">Pull</span>
-      <span class="chip cg">Contact force</span><span class="chip cg">Friction</span><span class="chip cg">Normal force</span><span class="chip cg">Tension</span><span class="chip cg">Applied force</span>
-      <span class="chip ca">Non-contact force</span><span class="chip ca">Gravity</span><span class="chip ca">Magnetic</span><span class="chip ca">Electrostatic</span>
-      <span class="chip cb">Balanced</span><span class="chip cb">Unbalanced</span><span class="chip cb">Net force</span><span class="chip cb">Mass</span><span class="chip cb">Weight</span><span class="chip cb">Acceleration</span>
+      <span class="chip cv">Force</span><span class="chip cv">Newton (N)</span><span class="chip cv">Inertia</span><span class="chip cg">Contact force</span><span class="chip cg">Friction</span><span class="chip cg">Normal force</span><span class="chip cg">Tension</span><span class="chip cg">Applied force</span><span class="chip cg">Air resistance</span><span class="chip cg">Upthrust</span><span class="chip ca">Non-contact</span><span class="chip ca">Gravity</span><span class="chip ca">Magnetic</span><span class="chip ca">Electrostatic</span><span class="chip cb">Balanced</span><span class="chip cb">Unbalanced</span><span class="chip cb">Net force</span><span class="chip cb">Mass</span><span class="chip cb">Weight</span><span class="chip cr">Speed</span><span class="chip cr">Distance</span><span class="chip cr">Time</span><span class="chip cr">Acceleration</span><span class="chip cr">Terminal velocity</span><span class="chip cv">Lever</span><span class="chip cv">Fulcrum</span><span class="chip cv">Effort</span><span class="chip cv">Load</span><span class="chip cv">Spring balance</span>
     </div>
   </div>
 </div>
@@ -216,63 +185,35 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <!-- ═══ TYPES OF FORCES ═══ -->
 <div id="sec-types" class="sec">
   <div class="card">
-    <h2>Contact forces vs non-contact forces</h2>
+    <h2>Contact vs non-contact forces</h2>
     <div class="two">
-      <div class="eb green"><strong>Contact forces</strong> require physical contact between objects — they must be touching.<br><br>Examples: friction, normal force, tension, applied force, air resistance</div>
-      <div class="eb amber"><strong>Non-contact forces</strong> act at a distance — the objects do NOT need to touch.<br><br>Examples: gravity, magnetic force, electrostatic force</div>
-    </div>
-    <div class="tip">A magnet can pull a paperclip from across a gap — that's a non-contact force. Your foot kicking a ball requires contact — that's a contact force.</div>
-  </div>
-
-  <div class="card">
-    <h2>Common types of forces — tap each to learn more</h2>
-    <div class="force-grid" id="force-grid">
-      <div class="force-card" onclick="showForce('friction',this)">
-        <div class="fname">🔴 Friction <span class="ftype contact">Contact</span></div>
-        <div class="fdesc">Opposes motion between surfaces in contact. Slows things down.</div>
-      </div>
-      <div class="force-card" onclick="showForce('normal',this)">
-        <div class="fname">🟦 Normal force <span class="ftype contact">Contact</span></div>
-        <div class="fdesc">A surface pushing back on an object resting on it. Always perpendicular to the surface.</div>
-      </div>
-      <div class="force-card" onclick="showForce('tension',this)">
-        <div class="fname">🟢 Tension <span class="ftype contact">Contact</span></div>
-        <div class="fdesc">Force transmitted through a string, rope or cable when pulled tight.</div>
-      </div>
-      <div class="force-card" onclick="showForce('applied',this)">
-        <div class="fname">🟡 Applied force <span class="ftype contact">Contact</span></div>
-        <div class="fdesc">A force applied directly to an object by a person or another object — pushing or pulling.</div>
-      </div>
-      <div class="force-card" onclick="showForce('airres',this)">
-        <div class="fname">💨 Air resistance <span class="ftype contact">Contact</span></div>
-        <div class="fdesc">A type of friction between an object and the air. Opposes motion through air.</div>
-      </div>
-      <div class="force-card" onclick="showForce('gravity',this)">
-        <div class="fname">🌍 Gravity <span class="ftype noncontact">Non-contact</span></div>
-        <div class="fdesc">An attractive force between all objects with mass. Pulls objects toward Earth's centre.</div>
-      </div>
-      <div class="force-card" onclick="showForce('magnetic',this)">
-        <div class="fname">🧲 Magnetic <span class="ftype noncontact">Non-contact</span></div>
-        <div class="fdesc">Force between magnets and magnetic materials. Can attract or repel at a distance.</div>
-      </div>
-      <div class="force-card" onclick="showForce('electro',this)">
-        <div class="fname">⚡ Electrostatic <span class="ftype noncontact">Non-contact</span></div>
-        <div class="fdesc">Force between electrically charged objects. Can attract or repel at a distance.</div>
-      </div>
-    </div>
-    <div id="force-info" style="margin-top:0.75rem;display:none">
-      <div class="eb purple" id="force-detail"></div>
+      <div class="eb green"><strong>Contact forces</strong> require physical contact — objects must be touching.<br><br>Examples: friction, normal force, tension, applied force, air resistance, upthrust</div>
+      <div class="eb amber"><strong>Non-contact forces</strong> act at a distance — objects do NOT need to touch.<br><br>Examples: gravity, magnetic force, electrostatic force</div>
     </div>
   </div>
-
   <div class="card">
-    <h2>Everyday examples — which type of force?</h2>
-    <div class="eb grey"><strong>Sliding a box across the floor</strong> → Applied force (pushing) + Friction (opposing) — both <span class="chip cg">Contact</span></div>
-    <div class="eb grey"><strong>A ball falling from a tree</strong> → Gravity — <span class="chip ca">Non-contact</span></div>
-    <div class="eb grey"><strong>A book resting on a table</strong> → Gravity down + Normal force up — both acting on the book</div>
-    <div class="eb grey"><strong>Paperclip pulled by magnet</strong> → Magnetic force — <span class="chip ca">Non-contact</span></div>
-    <div class="eb grey"><strong>Parachutist falling</strong> → Gravity down + Air resistance up — <span class="chip ca">Non-contact</span> + <span class="chip cg">Contact</span></div>
-    <div class="eb grey"><strong>A balloon sticking to a wall after rubbing</strong> → Electrostatic force — <span class="chip ca">Non-contact</span></div>
+    <h2>Common forces — tap to expand</h2>
+    <div class="force-grid">
+      <div class="force-card" onclick="showForce('friction',this)"><div class="fname">🔴 Friction <span class="ftype contact">Contact</span></div><div class="fdesc">Opposes motion between surfaces in contact</div></div>
+      <div class="force-card" onclick="showForce('normal',this)"><div class="fname">🟦 Normal force <span class="ftype contact">Contact</span></div><div class="fdesc">Surface pushes back — perpendicular to surface</div></div>
+      <div class="force-card" onclick="showForce('tension',this)"><div class="fname">🟢 Tension <span class="ftype contact">Contact</span></div><div class="fdesc">Force through rope, string or cable</div></div>
+      <div class="force-card" onclick="showForce('applied',this)"><div class="fname">🟡 Applied force <span class="ftype contact">Contact</span></div><div class="fdesc">A push or pull directly applied</div></div>
+      <div class="force-card" onclick="showForce('airres',this)"><div class="fname">💨 Air resistance <span class="ftype contact">Contact</span></div><div class="fdesc">Friction from air — opposes motion</div></div>
+      <div class="force-card" onclick="showForce('upthrust',this)"><div class="fname">🔵 Upthrust <span class="ftype contact">Contact</span></div><div class="fdesc">Upward push from a liquid on a submerged object</div></div>
+      <div class="force-card" onclick="showForce('gravity',this)"><div class="fname">🌍 Gravity <span class="ftype noncontact">Non-contact</span></div><div class="fdesc">Pulls all objects with mass toward each other</div></div>
+      <div class="force-card" onclick="showForce('magnetic',this)"><div class="fname">🧲 Magnetic <span class="ftype noncontact">Non-contact</span></div><div class="fdesc">Between magnets and magnetic materials</div></div>
+      <div class="force-card" onclick="showForce('electro',this)"><div class="fname">⚡ Electrostatic <span class="ftype noncontact">Non-contact</span></div><div class="fdesc">Between charged objects — attract or repel</div></div>
+    </div>
+    <div id="force-info" style="margin-top:0.75rem;display:none"><div class="eb purple" id="force-detail"></div></div>
+  </div>
+  <div class="card">
+    <h2>Measuring force — the spring balance</h2>
+    <div class="eb blue"><strong>A spring balance (Newton meter)</strong> measures force in <strong>Newtons (N)</strong>. It works by stretching a spring — the more force, the more it stretches, the higher the reading on the scale.</div>
+  </div>
+  <div class="card">
+    <h2>Air resistance — exam detail</h2>
+    <div class="eb purple"><strong>How air resistance works:</strong> As an object moves through air, it <strong>collides with air molecules</strong>. These collisions push back against the object, creating a force that opposes its motion.</div>
+    <div class="eb amber"><strong>Why it increases with speed:</strong> At higher speeds, the object hits <strong>more air molecules per second</strong> and each collision is <strong>more forceful</strong>. Faster = more collisions = more air resistance.</div>
   </div>
 </div>
 
@@ -280,79 +221,36 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <div id="sec-balanced" class="sec">
   <div class="card">
     <h2>Balanced forces</h2>
-    <div class="eb green">
-      <strong>Balanced forces</strong> occur when all forces acting on an object cancel each other out. The <strong>net force = 0 N</strong>.<br><br>
-      Result: the object does NOT change its motion — it stays still, or keeps moving at the same speed in the same direction.
-    </div>
-    <div class="tip">Balanced ≠ no forces. A book on a table has gravity pulling down AND a normal force pushing up. They balance — net force is zero, so the book doesn't move.</div>
-
-    <h3>Examples of balanced forces</h3>
-    <div class="eb grey"><strong>Book on a table:</strong> Gravity (10 N down) + Normal force (10 N up) = 0 N net force. Book stays still. ✓</div>
-    <div class="eb grey"><strong>Car at constant speed:</strong> Engine force forward = Air resistance + friction backward. Net force = 0. Speed stays the same. ✓</div>
-    <div class="eb grey"><strong>Tug-of-war tie:</strong> Team A pulls left 500 N, Team B pulls right 500 N. Net force = 0. Nobody moves. ✓</div>
+    <div class="eb green"><strong>Balanced forces</strong> are equal in size and opposite in direction. Net force = <strong>0 N</strong>.<br><br>Result: <strong>no change in motion</strong> — stays still OR continues at constant speed.</div>
+    <div class="tip">A resultant force of 0 N means two things are possible: the object is stationary, OR it's moving at constant speed in a straight line.</div>
+    <div class="eb grey"><strong>Book on table:</strong> Gravity 10 N down, Normal 10 N up → balanced → still ✓</div>
+    <div class="eb grey"><strong>Car at constant speed:</strong> Engine forward = friction + air resistance backward → balanced → constant speed ✓</div>
   </div>
-
   <div class="card">
     <h2>Unbalanced forces</h2>
-    <div class="eb amber">
-      <strong>Unbalanced forces</strong> occur when forces do NOT cancel out. The <strong>net force ≠ 0 N</strong>.<br><br>
-      Result: the object <strong>changes its motion</strong> — it speeds up, slows down, or changes direction (accelerates).
-    </div>
-
-    <h3>Examples of unbalanced forces</h3>
-    <div class="eb grey"><strong>Kicking a ball:</strong> Your foot applies a large force forward. Ground friction is small. Net force is forward → ball accelerates forward. ✓</div>
-    <div class="eb grey"><strong>Falling apple:</strong> Gravity pulls down 5 N. Air resistance pushes up 0.1 N. Net force = 4.9 N downward → apple accelerates down. ✓</div>
-    <div class="eb grey"><strong>Braking car:</strong> Brakes apply friction. Engine force reduces. Net force is backward → car slows down. ✓</div>
+    <div class="eb amber"><strong>Unbalanced forces</strong> do NOT cancel out. Net force ≠ <strong>0 N</strong>.<br><br>Result: the object <strong>changes its motion</strong> — speeds up, slows down, or changes direction.</div>
+    <div class="eb grey"><strong>Kicking a ball:</strong> Foot force > friction → net force forward → ball accelerates ✓</div>
+    <div class="eb grey"><strong>Tug-of-war (one team stronger):</strong> Unequal forces → rope accelerates toward the stronger team ✓</div>
   </div>
-
+  <div class="card">
+    <h2>Terminal velocity</h2>
+    <div class="eb blue"><strong>Free fall (early):</strong> Gravity (large) > Air resistance (small) → <strong>unbalanced</strong> → skydiver <strong>accelerates downward</strong>.</div>
+    <div class="eb green"><strong>Terminal velocity:</strong> As speed increases, air resistance grows until it <strong>equals gravity</strong>. Forces become <strong>balanced</strong> → net force = 0 → skydiver falls at <strong>constant speed</strong>.</div>
+    <div class="tip">In force diagrams: free fall has unequal arrows (gravity longer). Terminal velocity has equal-length arrows (gravity = air resistance).</div>
+  </div>
   <div class="card">
     <h2>Calculating net force</h2>
-    <div class="info-bar">Net force is the total force on an object after all forces are combined. Forces in the same direction are added. Forces in opposite directions are subtracted.</div>
-
-    <div class="eb purple">
-      <strong>Same direction:</strong> Net force = Force 1 + Force 2<br>
-      <strong>Opposite directions:</strong> Net force = Larger force − Smaller force (in direction of larger force)
-    </div>
-
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">Two people push a box: Person A pushes right with 30 N, Person B pushes right with 20 N. What is the net force? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Both forces are in the <strong>same direction</strong> (right), so add them.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Net force = <span class="math">30 + 20 = 50 N</span> to the right</div></div>
-        <div class="answer">✓ Net force = 50 N to the right → box accelerates right</div>
-      </div>
-    </div>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A tug-of-war: Team A pulls left with 400 N, Team B pulls right with 350 N. What is the net force? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Forces are in <strong>opposite directions</strong> — subtract the smaller from the larger.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Net force = <span class="math">400 − 350 = 50 N</span></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Direction = direction of the larger force (left, Team A).</div></div>
-        <div class="answer">✓ Net force = 50 N to the left → rope moves toward Team A</div>
-      </div>
-    </div>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A car engine pushes forward with 3000 N. Air resistance and friction together push backward with 3000 N. What happens? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Net force = <span class="math">3000 − 3000 = 0 N</span></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Net force is zero → forces are <strong>balanced</strong></div></div>
-        <div class="answer">✓ Net force = 0 N → car moves at constant speed (no change in motion)</div>
-      </div>
-    </div>
-
-    <h3>Net force calculator — try your own</h3>
+    <div class="eb purple"><strong>Same direction:</strong> Add the forces. <strong>Opposite directions:</strong> Subtract smaller from larger (net force in direction of larger).</div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">60 N right, 15 N left. Net force? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Opposite → subtract: <span class="math">60 − 15 = 45 N</span></div></div><div class="answer">✓ Net force = 45 N to the right (direction of larger force)</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">200 N right, 50 N left. Net force? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Opposite → subtract: <span class="math">200 − 50 = 150 N</span></div></div><div class="answer">✓ Net force = 150 N to the right</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">200 N right, 40 N right (same direction). Net force? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Same direction → add: <span class="math">200 + 40 = 240 N</span></div></div><div class="answer">✓ Net force = 240 N to the right</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">300 N left, 190 N right. Net force? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Opposite → subtract: <span class="math">300 − 190 = 110 N</span></div></div><div class="answer">✓ Net force = 110 N to the left (direction of larger)</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">2500 N up, 2500 N down. What happens? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Equal and opposite: <span class="math">2500 − 2500 = 0 N</span></div></div><div class="answer">✓ Balanced → no change in motion (stays still or constant speed)</div></div></div>
+    <h3>Net force calculator</h3>
     <div class="nf-card">
-      <div class="nf-row">
-        <label>Force 1 (N)</label>
-        <input type="number" id="f1" placeholder="e.g. 40" oninput="calcNet()">
-        <select id="d1" onchange="calcNet()"><option value="right">→ Right</option><option value="left">← Left</option><option value="up">↑ Up</option><option value="down">↓ Down</option></select>
-      </div>
-      <div class="nf-row">
-        <label>Force 2 (N)</label>
-        <input type="number" id="f2" placeholder="e.g. 25" oninput="calcNet()">
-        <select id="d2" onchange="calcNet()"><option value="right">→ Right</option><option value="left" selected>← Left</option><option value="up">↑ Up</option><option value="down">↓ Down</option></select>
-      </div>
-      <div class="nf-result" id="nf-result">Enter both forces above</div>
+      <div class="nf-row"><label>Force 1 (N)</label><input type="number" id="f1" oninput="calcNet()"><select id="d1" onchange="calcNet()"><option value="right">→ Right</option><option value="left">← Left</option></select></div>
+      <div class="nf-row"><label>Force 2 (N)</label><input type="number" id="f2" oninput="calcNet()"><select id="d2" onchange="calcNet()"><option value="right">→ Right</option><option value="left" selected>← Left</option></select></div>
+      <div class="nf-result" id="nf-result">Enter both forces</div>
     </div>
   </div>
 </div>
@@ -360,92 +258,19 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <!-- ═══ GRAVITY & WEIGHT ═══ -->
 <div id="sec-gravity" class="sec">
   <div class="card">
-    <h2>Gravity</h2>
-    <div class="eb purple">
-      <strong>Gravity</strong> is a non-contact attractive force that pulls all objects with mass toward each other. On Earth, gravity pulls everything toward the centre of the Earth.
-    </div>
-    <ul style="margin-top:0.5rem">
-      <li>Gravity acts on ALL objects with mass — there are no exceptions</li>
-      <li>The more mass an object has, the stronger the gravitational force on it</li>
-      <li>Earth's gravitational field strength is approximately <strong>10 N/kg</strong> (or 9.8 N/kg more precisely)</li>
-      <li>Gravity is always directed <strong>downward</strong> (toward Earth's centre)</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Mass vs Weight — a critical distinction</h2>
-    <div class="info-bar">This is one of the most commonly confused concepts in Year 7 physics. Mass and weight are NOT the same thing.</div>
+    <h2>Mass vs Weight</h2>
     <div class="two">
-      <div class="eb blue">
-        <strong>Mass</strong><br>
-        • The amount of matter in an object<br>
-        • Measured in <strong>kilograms (kg)</strong><br>
-        • Stays the SAME everywhere<br>
-        • Your mass on the Moon = your mass on Earth<br>
-        • Not a force
-      </div>
-      <div class="eb amber">
-        <strong>Weight</strong><br>
-        • The gravitational force pulling an object down<br>
-        • Measured in <strong>Newtons (N)</strong><br>
-        • CHANGES depending on gravity<br>
-        • Your weight on the Moon is 1/6 of Earth weight<br>
-        • IS a force
-      </div>
+      <div class="eb blue"><strong>Mass</strong><br>Amount of matter<br>Measured in <strong>kg</strong><br>Stays the <strong>same</strong> everywhere<br>Not a force</div>
+      <div class="eb amber"><strong>Weight</strong><br>Gravitational force<br>Measured in <strong>Newtons (N)</strong><br><strong>Changes</strong> with gravity<br>IS a force</div>
     </div>
-    <div class="tip">In everyday life we say "I weigh 60 kg" — but in science, 60 kg is your <em>mass</em>. Your <em>weight</em> would be about 600 N on Earth.</div>
-  </div>
-
-  <div class="card">
-    <h2>Calculating weight</h2>
-    <div style="background:#2d1b69;border-radius:10px;padding:1rem;text-align:center;margin:0.75rem 0">
-      <div style="font-size:18px;font-weight:500;color:white">W = m × g</div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.65);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px">Weight (N) = mass (kg) × gravitational field strength (N/kg)</div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">On Earth: g = 10 N/kg</div>
-    </div>
-
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A student has a mass of 50 kg. What is their weight on Earth (g = 10 N/kg)? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Write the formula: <span class="math">W = m × g</span></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Substitute: <span class="math">W = 50 × 10</span></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Calculate: <span class="math">W = 500 N</span></div></div>
-        <div class="answer">✓ Weight = 500 N downward</div>
-      </div>
-    </div>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A student weighs 600 N on Earth. What is their mass? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Formula: <span class="math">W = m × g</span>, rearrange for mass: <span class="math">m = W ÷ g</span></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Substitute: <span class="math">m = 600 ÷ 10</span></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Calculate: <span class="math">m = 60 kg</span></div></div>
-        <div class="answer">✓ Mass = 60 kg</div>
-      </div>
-    </div>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A 60 kg astronaut travels to the Moon where g = 1.6 N/kg. What is their weight on the Moon? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Formula: <span class="math">W = m × g</span></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Substitute Moon's g: <span class="math">W = 60 × 1.6</span></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Calculate: <span class="math">W = 96 N</span></div></div>
-        <div class="answer">✓ Weight on Moon = 96 N (compared to 600 N on Earth)</div>
-        <div class="tip">Mass stays 60 kg everywhere — only weight changes!</div>
-      </div>
-    </div>
-
+    <div class="fbox"><div class="ff">W = m × g</div><div class="fn">Weight (N) = Mass (kg) × Gravitational field strength (N/kg) &nbsp;|&nbsp; Earth: g = 10 N/kg</div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A student has mass 50 kg. Weight on Earth? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text"><span class="math">W = 50 × 10 = 500 N</span></div></div><div class="answer">✓ Weight = 500 N downward</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">Object weighs 600 N on Earth. Mass? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text"><span class="math">m = W ÷ g = 600 ÷ 10 = 60 kg</span></div></div><div class="answer">✓ Mass = 60 kg (stays 60 kg everywhere)</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">60 kg astronaut on the Moon (g = 1.6 N/kg). Weight? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text"><span class="math">W = 60 × 1.6 = 96 N</span> (vs 600 N on Earth)</div></div><div class="answer">✓ Weight = 96 N. Mass stays 60 kg.</div></div></div>
     <h3>Weight calculator</h3>
     <div class="nf-card">
-      <div class="nf-row"><label>Mass (kg)</label><input type="number" id="wm" placeholder="e.g. 55" oninput="calcWeight()"></div>
-      <div class="nf-row">
-        <label>Location</label>
-        <select id="wloc" onchange="calcWeight()" style="flex:1;border:1px solid #ccc;border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit;outline:none">
-          <option value="10">Earth (g = 10 N/kg)</option>
-          <option value="1.6">Moon (g = 1.6 N/kg)</option>
-          <option value="3.7">Mars (g = 3.7 N/kg)</option>
-          <option value="24.8">Jupiter (g = 24.8 N/kg)</option>
-          <option value="0.58">Pluto (g = 0.58 N/kg)</option>
-        </select>
-      </div>
+      <div class="nf-row"><label>Mass (kg)</label><input type="number" id="wm" oninput="calcWeight()"></div>
+      <div class="nf-row"><label>Location</label><select id="wloc" onchange="calcWeight()" style="flex:1;border:1px solid #ccc;border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit"><option value="10">Earth (g = 10)</option><option value="1.6">Moon (g = 1.6)</option><option value="3.7">Mars (g = 3.7)</option><option value="24.8">Jupiter (g = 24.8)</option></select></div>
       <div class="nf-result" id="weight-result">Enter mass above</div>
     </div>
   </div>
@@ -455,476 +280,258 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <div id="sec-diagrams" class="sec">
   <div class="card">
     <h2>How to draw force diagrams</h2>
-    <div class="eb purple">
-      Force diagrams (also called <strong>free body diagrams</strong>) use <strong>arrows</strong> to show all forces acting on an object.
-    </div>
-    <ul style="margin-top:0.5rem">
-      <li>Draw the object as a simple box or dot in the centre</li>
-      <li>Draw an arrow for EACH force acting on the object</li>
-      <li>The <strong>direction</strong> of the arrow shows the direction of the force</li>
-      <li>The <strong>length</strong> of the arrow shows the size (magnitude) of the force — bigger force = longer arrow</li>
-      <li>Label each arrow with the name and value of the force (e.g. "Gravity 50 N")</li>
-    </ul>
+    <div class="eb purple">Arrows show: <strong>Direction</strong> (which way) and <strong>Magnitude</strong> (how big — longer arrow = bigger force). Label each arrow with the force name and value.</div>
     <div class="tip">Only draw forces acting ON the object — not forces the object exerts on other things.</div>
+    <h3>If D is thrust (forward), what is B (backward)?</h3>
+    <div class="eb green"><strong>Drag (air resistance)</strong> — it always opposes the direction of motion. If thrust pushes forward, drag pushes backward.</div>
   </div>
-
   <div class="card">
-    <h2>Interactive force diagram builder</h2>
-    <p style="font-size:13px;color:#5f5e5a;margin-bottom:0.75rem">Adjust the sliders to see how forces change. Watch whether they balance or which direction the net force points.</p>
+    <h2>Interactive force diagram</h2>
     <div class="fd-wrap">
-      <div class="fd-head">Force diagram — object on a surface</div>
+      <div class="fd-head">Adjust forces to see balanced vs unbalanced</div>
       <div class="fd-body">
-        <div class="fd-canvas" id="fd-canvas">
-          <canvas id="fd-cvs" style="width:100%;height:100%"></canvas>
-        </div>
+        <div class="fd-canvas"><canvas id="fd-cvs" style="width:100%;height:100%"></canvas></div>
         <div class="fd-controls">
-          <div class="fd-ctrl"><span style="color:#E53E3E;font-weight:500">↑ Up force (N)</span><input type="range" min="0" max="100" value="50" id="fu" oninput="drawFD()"><span class="val" id="fu-v">50</span></div>
-          <div class="fd-ctrl"><span style="color:#2d1b69;font-weight:500">↓ Down force (N)</span><input type="range" min="0" max="100" value="50" id="fd" oninput="drawFD()"><span class="val" id="fd-v">50</span></div>
-          <div class="fd-ctrl"><span style="color:#1a7a4a;font-weight:500">→ Right force (N)</span><input type="range" min="0" max="100" value="30" id="fr" oninput="drawFD()"><span class="val" id="fr-v">30</span></div>
-          <div class="fd-ctrl"><span style="color:#b87c12;font-weight:500">← Left force (N)</span><input type="range" min="0" max="100" value="30" id="fl" oninput="drawFD()"><span class="val" id="fl-v">30</span></div>
+          <div class="fd-ctrl"><span style="color:#E53E3E;font-weight:500">↑ Up</span><input type="range" min="0" max="100" value="50" id="fu" oninput="drawFD()"><span class="val" id="fu-v">50</span></div>
+          <div class="fd-ctrl"><span style="color:#2d1b69;font-weight:500">↓ Down</span><input type="range" min="0" max="100" value="50" id="fdd" oninput="drawFD()"><span class="val" id="fd-v">50</span></div>
+          <div class="fd-ctrl"><span style="color:#1a7a4a;font-weight:500">→ Right</span><input type="range" min="0" max="100" value="30" id="fr" oninput="drawFD()"><span class="val" id="fr-v">30</span></div>
+          <div class="fd-ctrl"><span style="color:#b87c12;font-weight:500">← Left</span><input type="range" min="0" max="100" value="30" id="fl" oninput="drawFD()"><span class="val" id="fl-v">30</span></div>
         </div>
         <div class="fd-status" id="fd-status"></div>
       </div>
     </div>
   </div>
-
   <div class="card">
-    <h2>Common force diagram scenarios</h2>
+    <h2>Common scenarios</h2>
+    <div class="diagram-card"><div class="dname">Book on table</div><svg width="200" height="120" viewBox="0 0 200 120"><rect x="40" y="80" width="120" height="8" fill="#c8a96e" rx="2"/><rect x="70" y="55" width="60" height="25" fill="#2d1b69" rx="3"/><text x="100" y="70" text-anchor="middle" fill="white" font-size="9" font-weight="500">Book</text><line x1="100" y1="80" x2="100" y2="110" stroke="#E53E3E" stroke-width="2" marker-end="url(#ar)"/><text x="110" y="105" fill="#E53E3E" font-size="9">W ↓</text><line x1="85" y1="55" x2="85" y2="25" stroke="#1a7a4a" stroke-width="2" marker-end="url(#ag)"/><text x="55" y="30" fill="#1a7a4a" font-size="9">Normal ↑</text><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#E53E3E"/></marker><marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1a7a4a"/></marker></defs></svg><div class="dtag">Balanced — equal arrows, no motion</div></div>
+    <div class="diagram-card"><div class="dname">Skydiver: free fall vs terminal velocity</div><svg width="300" height="140" viewBox="0 0 300 140"><circle cx="75" cy="60" r="18" fill="#2d1b69"/><text x="75" y="64" text-anchor="middle" fill="white" font-size="8" font-weight="500">Free fall</text><line x1="75" y1="78" x2="75" y2="130" stroke="#E53E3E" stroke-width="3" marker-end="url(#ar)"/><text x="82" y="120" fill="#E53E3E" font-size="8">Gravity (big)</text><line x1="65" y1="42" x2="65" y2="22" stroke="#1a7a4a" stroke-width="1.5" marker-end="url(#ag)"/><text x="20" y="25" fill="#1a7a4a" font-size="8">Air res (small)</text><circle cx="225" cy="60" r="18" fill="#2d1b69"/><text x="225" y="58" text-anchor="middle" fill="white" font-size="7" font-weight="500">Terminal</text><text x="225" y="67" text-anchor="middle" fill="white" font-size="7" font-weight="500">velocity</text><line x1="225" y1="78" x2="225" y2="120" stroke="#E53E3E" stroke-width="2" marker-end="url(#ar)"/><text x="232" y="112" fill="#E53E3E" font-size="8">Gravity</text><line x1="215" y1="42" x2="215" y2="2" stroke="#1a7a4a" stroke-width="2" marker-end="url(#ag)"/><text x="170" y="8" fill="#1a7a4a" font-size="8">Air res (equal)</text></svg><div class="dtag">Left: unbalanced → accelerating. Right: balanced → constant speed.</div></div>
+  </div>
+</div>
 
-    <div class="diagram-card">
-      <div class="dname">Book resting on a table</div>
-      <svg width="200" height="140" viewBox="0 0 200 140">
-        <!-- table -->
-        <rect x="40" y="95" width="120" height="8" fill="#c8a96e" rx="2"/>
-        <!-- book -->
-        <rect x="70" y="70" width="60" height="25" fill="#2d1b69" rx="3"/>
-        <text x="100" y="85" text-anchor="middle" fill="white" font-size="9" font-weight="500">Book</text>
-        <!-- gravity arrow down -->
-        <line x1="100" y1="95" x2="100" y2="128" stroke="#E53E3E" stroke-width="2" marker-end="url(#arr-red)"/>
-        <text x="118" y="120" fill="#E53E3E" font-size="10" font-weight="500">W = mg ↓</text>
-        <!-- normal arrow up -->
-        <line x1="85" y1="70" x2="85" y2="37" stroke="#1a7a4a" stroke-width="2" marker-end="url(#arr-green)"/>
-        <text x="2" y="44" fill="#1a7a4a" font-size="10" font-weight="500">Normal ↑</text>
-        <!-- equal sign -->
-        <text x="80" y="135" fill="#2d1b69" font-size="10" text-anchor="middle">Balanced — no motion</text>
-        <defs>
-          <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#E53E3E"/></marker>
-          <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1a7a4a"/></marker>
-          <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1a4a8c"/></marker>
-          <marker id="arr-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#b87c12"/></marker>
-        </defs>
-      </svg>
-      <div class="dtag">Weight (gravity) pulls down, Normal force pushes up. Equal and opposite → balanced → book doesn't move.</div>
-    </div>
-
-    <div class="diagram-card">
-      <div class="dname">Box being pushed across the floor</div>
-      <svg width="240" height="130" viewBox="0 0 240 130">
-        <rect x="30" y="105" width="180" height="5" fill="#c8a96e" rx="1"/>
-        <rect x="90" y="75" width="60" height="30" fill="#2d1b69" rx="3"/>
-        <text x="120" y="93" text-anchor="middle" fill="white" font-size="9" font-weight="500">Box</text>
-        <!-- gravity -->
-        <line x1="120" y1="105" x2="120" y2="125" stroke="#E53E3E" stroke-width="2" marker-end="url(#arr-red)"/>
-        <text x="125" y="120" fill="#E53E3E" font-size="9">W ↓</text>
-        <!-- normal -->
-        <line x1="105" y1="75" x2="105" y2="55" stroke="#1a7a4a" stroke-width="2" marker-end="url(#arr-green)"/>
-        <text x="60" y="58" fill="#1a7a4a" font-size="9">Normal ↑</text>
-        <!-- applied big arrow right -->
-        <line x1="40" y1="90" x2="88" y2="90" stroke="#1a4a8c" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-        <text x="18" y="105" fill="#1a4a8c" font-size="9">Push →</text>
-        <text x="18" y="115" fill="#1a4a8c" font-size="9">(large)</text>
-        <!-- friction small arrow left -->
-        <line x1="152" y1="90" x2="180" y2="90" stroke="#b87c12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
-        <text x="182" y="87" fill="#b87c12" font-size="9">Friction ←</text>
-        <text x="182" y="97" fill="#b87c12" font-size="9">(smaller)</text>
-        <text x="120" y="130" text-anchor="middle" fill="#2d1b69" font-size="9">Unbalanced — box accelerates right</text>
-      </svg>
-      <div class="dtag">Push > Friction → net force to the right → box speeds up (accelerates).</div>
-    </div>
-
-    <div class="diagram-card">
-      <div class="dname">Skydiver in free fall (before parachute)</div>
-      <svg width="180" height="140" viewBox="0 0 180 140">
-        <circle cx="90" cy="65" r="22" fill="#2d1b69"/>
-        <text x="90" y="69" text-anchor="middle" fill="white" font-size="9" font-weight="500">Skydiver</text>
-        <!-- big gravity down -->
-        <line x1="90" y1="87" x2="90" y2="130" stroke="#E53E3E" stroke-width="3" marker-end="url(#arr-red)"/>
-        <text x="95" y="120" fill="#E53E3E" font-size="10" font-weight="500">Gravity (large)</text>
-        <!-- small air resistance up -->
-        <line x1="75" y1="43" x2="75" y2="18" stroke="#1a7a4a" stroke-width="1.5" marker-end="url(#arr-green)"/>
-        <text x="2" y="22" fill="#1a7a4a" font-size="9">Air resistance</text>
-        <text x="2" y="32" fill="#1a7a4a" font-size="9">(small)</text>
-        <text x="90" y="138" text-anchor="middle" fill="#2d1b69" font-size="9">Unbalanced — accelerates downward</text>
-      </svg>
-      <div class="dtag">Gravity (large) > Air resistance (small) → unbalanced → skydiver accelerates downward.</div>
+<!-- ═══ SPEED = D/T ═══ -->
+<div id="sec-speed" class="sec">
+  <div class="card">
+    <h2>Speed, Distance and Time</h2>
+    <div class="fbox"><div class="ff">Speed = Distance ÷ Time</div><div class="fn">S = D/T &nbsp;|&nbsp; D = S × T &nbsp;|&nbsp; T = D/S</div></div>
+    <div class="eb purple"><strong>The formula triangle:</strong> Put <strong>D</strong> (distance) on top, <strong>S</strong> (speed) and <strong>T</strong> (time) on the bottom. Cover the one you want to find — the remaining two show the calculation.</div>
+    <div class="eb blue"><strong>Units:</strong> Speed in <strong>m/s</strong> or <strong>km/h</strong>. Distance in <strong>m</strong> or <strong>km</strong>. Time in <strong>seconds</strong> or <strong>hours</strong>. Make sure units match!</div>
+    <div class="tip">If distance is in km and time in hours → speed is km/h. If distance is in m and time in seconds → speed is m/s. Watch for unit traps (e.g. time given in minutes — convert to seconds or hours first).</div>
+  </div>
+  <div class="card">
+    <h2>Worked examples from your revision sheet</h2>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A car travels 5 km in 3 hours. Calculate its speed. <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">S = D ÷ T = <span class="math">5 ÷ 3 = 1.67 km/h</span></div></div><div class="answer">✓ Speed = 1.67 km/h</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A horse walks at 6 km/h. How far will it walk in 2.5 hours? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">D = S × T = <span class="math">6 × 2.5 = 15 km</span></div></div><div class="answer">✓ Distance = 15 km</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">Terminal velocity 90 m/s, fallen 800 m at that speed. How long? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">T = D ÷ S = <span class="math">800 ÷ 90 = 8.89 seconds</span></div></div><div class="answer">✓ Time ≈ 8.9 seconds</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A car travels 4 km in 5 minutes. Average speed? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Convert: 5 min = <span class="math">5 ÷ 60 = 1/12 hour</span></div></div><div class="step"><div class="step-num">2</div><div class="step-text">S = D ÷ T = <span class="math">4 ÷ (1/12) = 4 × 12 = 48 km/h</span></div></div><div class="answer">✓ Speed = 48 km/h</div><div class="tip">OR in m/s: 4000 m ÷ 300 s = 13.3 m/s</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A plane: 7000 km in 8 hours. Speed? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">S = D ÷ T = <span class="math">7000 ÷ 8 = 875 km/h</span></div></div><div class="answer">✓ Speed = 875 km/h</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">Chicken runs 40 m in 10 seconds. Speed? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">S = D ÷ T = <span class="math">40 ÷ 10 = 4 m/s</span></div></div><div class="answer">✓ Speed = 4 m/s</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">Sloth climbs 15 m tree in 10 minutes. Speed? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">Convert: 10 min = <span class="math">600 seconds</span></div></div><div class="step"><div class="step-num">2</div><div class="step-text">S = D ÷ T = <span class="math">15 ÷ 600 = 0.025 m/s</span></div></div><div class="answer">✓ Speed = 0.025 m/s (2.5 cm per second!)</div></div></div>
+    <h3>Speed calculator</h3>
+    <div class="nf-card">
+      <div class="nf-row"><label>Find:</label><select id="sfind" onchange="calcSpeed()" style="flex:1;border:1px solid #ccc;border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit"><option value="speed">Speed</option><option value="distance">Distance</option><option value="time">Time</option></select></div>
+      <div class="nf-row"><label>Distance</label><input type="number" id="sd" oninput="calcSpeed()" placeholder="km or m"></div>
+      <div class="nf-row"><label>Speed</label><input type="number" id="ss" oninput="calcSpeed()" placeholder="km/h or m/s"></div>
+      <div class="nf-row"><label>Time</label><input type="number" id="st" oninput="calcSpeed()" placeholder="hours or seconds"></div>
+      <div class="nf-result" id="speed-result">Fill in any two values</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ MASS & MOTION ═══ -->
+<!-- ═══ F = ma ═══ -->
+<div id="sec-fma" class="sec">
+  <div class="card">
+    <h2>Force = Mass × Acceleration</h2>
+    <div class="fbox"><div class="ff">F = m × a</div><div class="fn">Force (N) = Mass (kg) × Acceleration (m/s²)</div></div>
+    <div class="eb purple"><strong>Rearranged:</strong><br>a = F ÷ m (find acceleration)<br>m = F ÷ a (find mass)</div>
+    <div class="tip">Use the same triangle method as speed: F on top, m and a on the bottom. Cover the one you want to find.</div>
+  </div>
+  <div class="card">
+    <h2>Worked examples from your revision sheet</h2>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">A missile accelerates at 150 m/s². Mass is 900 kg. How much force? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">F = m × a = <span class="math">900 × 150</span></div></div><div class="step"><div class="step-num">2</div><div class="step-text">F = <span class="math">135,000 N</span></div></div><div class="answer">✓ Force = 135,000 N (135 kN)</div></div></div>
+    <div class="worked"><div class="worked-q" onclick="tw(this)">Mr Sanchez: mass 90 kg, falling at 10 m/s². Force acting on him? <span class="chev">▼</span></div><div class="worked-body"><div class="step"><div class="step-num">1</div><div class="step-text">F = m × a = <span class="math">90 × 10 = 900 N</span></div></div><div class="answer">✓ Force = 900 N (this is his weight — same as W = mg)</div></div></div>
+    <h3>F = ma calculator</h3>
+    <div class="nf-card">
+      <div class="nf-row"><label>Find:</label><select id="fmafind" onchange="calcFma()" style="flex:1;border:1px solid #ccc;border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit"><option value="force">Force (N)</option><option value="mass">Mass (kg)</option><option value="acc">Acceleration (m/s²)</option></select></div>
+      <div class="nf-row"><label>Force (N)</label><input type="number" id="fma-f" oninput="calcFma()"></div>
+      <div class="nf-row"><label>Mass (kg)</label><input type="number" id="fma-m" oninput="calcFma()"></div>
+      <div class="nf-row"><label>Acceleration</label><input type="number" id="fma-a" oninput="calcFma()"></div>
+      <div class="nf-result" id="fma-result">Fill in two values</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LEVERS & MACHINES ═══ -->
+<div id="sec-levers" class="sec">
+  <div class="card">
+    <h2>Simple machines</h2>
+    <div class="eb purple">Simple machines make work easier by changing the <strong>direction</strong>, <strong>magnitude</strong>, or <strong>distance</strong> over which a force is applied. Your teacher focuses on 3 types:</div>
+    <div class="three" style="margin-top:0.5rem">
+      <div style="text-align:center;padding:10px;background:#F0EDFB;border-radius:10px;font-size:13px;font-weight:500;color:#2d1b69">Levers</div>
+      <div style="text-align:center;padding:10px;background:#E6F5EE;border-radius:10px;font-size:13px;font-weight:500;color:#0d3d25">Inclined planes<br><span style="font-size:11px;font-weight:400;color:#5f5e5a">(ramps &amp; wedges)</span></div>
+      <div style="text-align:center;padding:10px;background:#EBF3FB;border-radius:10px;font-size:13px;font-weight:500;color:#0d2447">Pulleys</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Parts of a lever</h2>
+    <div class="eb blue">Every lever has 3 parts:<br><strong>1. Effort (Force)</strong> — the force you apply<br><strong>2. Load</strong> — the object being moved<br><strong>3. Fulcrum (Pivot)</strong> — the fixed point the lever rotates around</div>
+  </div>
+  <div class="card">
+    <h2>Three classes of levers</h2>
+    <div class="lever-card" style="border-left:4px solid #2d1b69">
+      <div class="lclass" style="color:#2d1b69">1st Class Lever</div>
+      <div class="lorder">Load — FULCRUM — Effort</div>
+      <div class="lexamples"><strong>Fulcrum is in the MIDDLE</strong> (between effort and load)<br>Examples: <strong>seesaw, scissors, pliers, crowbar, claw hammer</strong></div>
+    </div>
+    <div class="lever-card" style="border-left:4px solid #1a7a4a">
+      <div class="lclass" style="color:#1a7a4a">2nd Class Lever</div>
+      <div class="lorder">Fulcrum — LOAD — Effort</div>
+      <div class="lexamples"><strong>Load is in the MIDDLE</strong> (between fulcrum and effort)<br>Examples: <strong>wheelbarrow, nutcracker, bottle opener, stapler, door</strong></div>
+    </div>
+    <div class="lever-card" style="border-left:4px solid #b83232">
+      <div class="lclass" style="color:#b83232">3rd Class Lever</div>
+      <div class="lorder">Fulcrum — EFFORT — Load</div>
+      <div class="lexamples"><strong>Effort is in the MIDDLE</strong> (between fulcrum and load)<br>Examples: <strong>fishing rod, tweezers/tongs, broom, shovel, human arm</strong></div>
+    </div>
+    <div class="tip">Memory trick: think about what's in the middle. 1st = F(ulcrum). 2nd = L(oad). 3rd = E(ffort). <strong>FLE</strong> — say "FLEE" to remember the order!</div>
+  </div>
+  <div class="card">
+    <h2>Classify these levers (from your revision sheet)</h2>
+    <div class="eb grey"><strong>Fishing rod</strong> — Fulcrum (handle) → Effort (your hand) → Load (fish) → <strong>3rd class</strong></div>
+    <div class="eb grey"><strong>Stapler</strong> — Fulcrum (hinge at back) → Load (staple) → Effort (press front) → <strong>2nd class</strong></div>
+    <div class="eb grey"><strong>Scissors</strong> — Effort (handles) → Fulcrum (pivot) → Load (paper) → <strong>1st class</strong></div>
+    <div class="eb grey"><strong>Wheelbarrow</strong> — Fulcrum (wheel) → Load (tray) → Effort (handles) → <strong>2nd class</strong></div>
+    <div class="eb grey"><strong>Seesaw</strong> — Load → Fulcrum (centre pivot) → Effort → <strong>1st class</strong></div>
+    <div class="eb grey"><strong>Tweezers/tongs</strong> — Fulcrum (joined end) → Effort (squeeze middle) → Load (tips) → <strong>3rd class</strong></div>
+    <div class="eb grey"><strong>Claw hammer</strong> — Effort (handle) → Fulcrum (head edge) → Load (nail) → <strong>1st class</strong></div>
+    <div class="eb grey"><strong>Shovel</strong> — Fulcrum (lower hand) → Effort (upper hand) → Load (dirt at end) → <strong>3rd class</strong></div>
+    <div class="eb grey"><strong>Human arm</strong> — Fulcrum (elbow) → Effort (bicep) → Load (hand/object) → <strong>3rd class</strong></div>
+  </div>
+</div>
+
+<!-- ═══ INERTIA & MOTION ═══ -->
 <div id="sec-motion" class="sec">
   <div class="card">
-    <h2>How forces affect motion</h2>
-    <div class="eb purple">
-      A force only <strong>changes</strong> motion when it is unbalanced. The three things that determine what happens to an object are: the <strong>magnitude</strong> (size) of the net force, the <strong>direction</strong> of the net force, and the <strong>mass</strong> of the object.
-    </div>
-
-    <h3>Effect of magnitude (size of force)</h3>
-    <div class="eb blue">A <strong>larger net force</strong> causes a <strong>greater change in motion</strong> (greater acceleration). If you push a shopping trolley harder, it speeds up faster.</div>
-
-    <h3>Effect of direction</h3>
-    <div class="eb green">The object accelerates <strong>in the same direction as the net force</strong>. Push right → moves right. Push up → moves up.</div>
-
-    <h3>Effect of mass</h3>
-    <div class="eb amber">A <strong>larger mass</strong> means <strong>less change in motion</strong> for the same force. It's harder to push a fully loaded trolley than an empty one. The same force produces less acceleration for a greater mass.</div>
+    <h2>Inertia</h2>
+    <div class="eb purple"><strong>Inertia</strong> is an object's <strong>resistance to change in its motion</strong>. An object at rest stays at rest; an object in motion stays in motion — unless acted on by an unbalanced force.</div>
+    <div class="eb amber"><strong>More mass = more inertia</strong> = harder to start, stop or change direction. That's why a full trolley is harder to push around a corner than an empty one.</div>
   </div>
-
   <div class="card">
-    <h2>Mass and motion — the relationship</h2>
-    <div class="info-bar">This is Newton's Second Law of Motion — you don't need to know the law by name at Year 7, but you need to understand the relationship.</div>
-
-    <div class="eb purple">
-      <strong>For the same force:</strong> Double the mass → half the acceleration (harder to move)<br>
-      <strong>For the same mass:</strong> Double the force → double the acceleration (faster change)
-    </div>
-
-    <h3>Worked examples</h3>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">Two boxes are pushed with the same force. Box A has mass 5 kg, Box B has mass 20 kg. Which accelerates more? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Same force is applied to both boxes.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Box A has <strong>less mass</strong> → less resistance to force → <strong>greater acceleration</strong>.</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">Box B has <strong>more mass</strong> → more resistance to force → <strong>less acceleration</strong>.</div></div>
-        <div class="answer">✓ Box A (5 kg) accelerates more. Box B (20 kg) accelerates less for the same force.</div>
-      </div>
-    </div>
-    <div class="worked">
-      <div class="worked-q" onclick="tw(this)">A net force of 20 N acts on a 2 kg ball. What happens if the same 20 N net force acts on a 10 kg ball? <span class="chev">▼</span></div>
-      <div class="worked-body">
-        <div class="step"><div class="step-num">1</div><div class="step-text">Same force (20 N), but mass increases from 2 kg to 10 kg — <strong>5 times more mass</strong>.</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">Greater mass → harder to accelerate → <strong>acceleration is 5 times smaller</strong>.</div></div>
-        <div class="answer">✓ The 10 kg ball accelerates much less than the 2 kg ball for the same force.</div>
-        <div class="tip">Mass resists changes in motion — this resistance is called <em>inertia</em>.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Summary — what causes what?</h2>
-    <div class="eb green"><strong>Balanced forces (net force = 0 N)</strong> → Object stays still OR continues moving at the same speed in the same direction. No change in motion.</div>
-    <div class="eb amber"><strong>Unbalanced forces (net force ≠ 0 N)</strong> → Object changes its motion — speeds up, slows down, or changes direction.</div>
-    <div class="eb purple"><strong>Larger force</strong> → greater change in motion (more acceleration)</div>
-    <div class="eb blue"><strong>Larger mass</strong> → less change in motion (less acceleration) for the same force</div>
-    <div class="eb grey"><strong>Direction of net force</strong> → determines the direction of the change in motion</div>
+    <h2>How force, mass and direction affect motion</h2>
+    <div class="eb blue"><strong>Larger force</strong> → greater change in motion (more acceleration)</div>
+    <div class="eb green"><strong>Larger mass</strong> → less change in motion (less acceleration) for same force</div>
+    <div class="eb purple"><strong>Direction of net force</strong> → object accelerates in the same direction as the net force</div>
+    <div class="eb grey"><strong>Balanced forces (0 N)</strong> → no change — stays still or constant speed</div>
+    <div class="eb grey"><strong>Unbalanced forces (≠ 0 N)</strong> → speeds up, slows down, or changes direction</div>
   </div>
 </div>
 
 <!-- ═══ PRACTICE ═══ -->
 <div id="sec-practice" class="sec">
   <div class="card">
-    <h2>Practice questions — Forces</h2>
-    <div class="info-bar">Type your answer (words or numbers as indicated), then click Check.</div>
-
-    <div class="pq">
-      <div class="pq-q">1. A book rests on a table. Gravity pulls it down with 15 N. The table pushes up with 15 N. What is the net force?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p1" placeholder="Answer in N"><button class="pq-btn" onclick="checkN(1,0,'15 N up − 15 N down = 0 N. The forces are balanced, so the net force is 0 N.')">Check</button></div>
-      <div class="pq-feedback" id="pf1"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">2. Two people push a box in the same direction. Person A pushes with 45 N and Person B pushes with 35 N. What is the net force?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p2" placeholder="Answer in N"><button class="pq-btn" onclick="checkN(2,80,'Same direction → add the forces: 45 + 35 = 80 N in the direction they are pushing.')">Check</button></div>
-      <div class="pq-feedback" id="pf2"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">3. In a tug-of-war, Team A pulls with 600 N left and Team B pulls with 480 N right. What is the net force and in which direction?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p3" placeholder="Answer in N"><button class="pq-btn" onclick="checkN(3,120,'Opposite directions → subtract: 600 − 480 = 120 N to the left (Team A\'s direction, the larger force).')">Check</button></div>
-      <div class="pq-feedback" id="pf3"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">4. A student has a mass of 45 kg. What is their weight on Earth? (g = 10 N/kg)</div>
-      <div class="pq-input-row"><input class="pq-input" id="p4" placeholder="Answer in N"><button class="pq-btn" onclick="checkN(4,450,'W = m × g = 45 × 10 = 450 N downward.')">Check</button></div>
-      <div class="pq-feedback" id="pf4"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">5. An object weighs 350 N on Earth (g = 10 N/kg). What is its mass?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p5" placeholder="Answer in kg"><button class="pq-btn" onclick="checkN(5,35,'m = W ÷ g = 350 ÷ 10 = 35 kg')">Check</button></div>
-      <div class="pq-feedback" id="pf5"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">6. A car engine provides 4000 N forward. Air resistance is 3200 N backward. Is the car accelerating, decelerating, or at constant speed?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p6" placeholder="accelerating / decelerating / constant speed"><button class="pq-btn" onclick="checkWord(6,'accelerating','Net force = 4000 − 3200 = 800 N forward. Unbalanced net force forward → car accelerates (speeds up).')">Check</button></div>
-      <div class="pq-feedback" id="pf6"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">7. Is friction a contact force or a non-contact force? Give a reason.</div>
-      <div class="pq-input-row"><input class="pq-input" id="p7" placeholder="contact / non-contact"><button class="pq-btn" onclick="checkWord(7,'contact','Friction is a contact force — it only acts between surfaces that are physically touching each other.')">Check</button></div>
-      <div class="pq-feedback" id="pf7"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">8. A 60 kg person travels to Mars where g = 3.7 N/kg. What is their weight on Mars?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p8" placeholder="Answer in N"><button class="pq-btn" onclick="checkN(8,222,'W = m × g = 60 × 3.7 = 222 N. Their mass stays 60 kg — only the weight changes.')">Check</button></div>
-      <div class="pq-feedback" id="pf8"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">9. Two balls are dropped from the same height. Ball A has mass 1 kg, Ball B has mass 5 kg. Which has a greater weight (gravitational force) acting on it?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p9" placeholder="Ball A / Ball B"><button class="pq-btn" onclick="checkWord(9,'ball b','Ball B has 5× the mass, so gravity pulls it with 5× the force: W = 5 × 10 = 50 N vs Ball A\'s 10 N.')">Check</button></div>
-      <div class="pq-feedback" id="pf9"></div>
-    </div>
-
-    <div class="pq">
-      <div class="pq-q">10. A stationary shopping trolley is pushed to the right with 60 N. Friction acts to the left with 60 N. What happens to the trolley?</div>
-      <div class="pq-input-row"><input class="pq-input" id="p10" placeholder="What happens?"><button class="pq-btn" onclick="checkWord(10,'stays still','Net force = 60 − 60 = 0 N. Forces are balanced → no change in motion → trolley stays still.')">Check</button></div>
-      <div class="pq-feedback" id="pf10"></div>
-    </div>
+    <h2>Practice — mixed exam questions</h2>
+    <div class="pq"><div class="pq-q">1. Net force: 60 N right and 15 N left?</div><div class="pq-input-row"><input class="pq-input" id="p1"><button class="pq-btn" onclick="checkN(1,45,'60 − 15 = 45 N to the right')">Check</button></div><div class="pq-feedback" id="pf1"></div></div>
+    <div class="pq"><div class="pq-q">2. A student has mass 45 kg. Weight on Earth? (g = 10)</div><div class="pq-input-row"><input class="pq-input" id="p2"><button class="pq-btn" onclick="checkN(2,450,'W = 45 × 10 = 450 N')">Check</button></div><div class="pq-feedback" id="pf2"></div></div>
+    <div class="pq"><div class="pq-q">3. Speed: 40 m in 10 seconds?</div><div class="pq-input-row"><input class="pq-input" id="p3"><button class="pq-btn" onclick="checkN(3,4,'S = 40 ÷ 10 = 4 m/s')">Check</button></div><div class="pq-feedback" id="pf3"></div></div>
+    <div class="pq"><div class="pq-q">4. Distance: 6 km/h for 2.5 hours?</div><div class="pq-input-row"><input class="pq-input" id="p4"><button class="pq-btn" onclick="checkN(4,15,'D = 6 × 2.5 = 15 km')">Check</button></div><div class="pq-feedback" id="pf4"></div></div>
+    <div class="pq"><div class="pq-q">5. F = ma: mass 900 kg, acceleration 150 m/s². Force?</div><div class="pq-input-row"><input class="pq-input" id="p5"><button class="pq-btn" onclick="checkN(5,135000,'F = 900 × 150 = 135,000 N')">Check</button></div><div class="pq-feedback" id="pf5"></div></div>
+    <div class="pq"><div class="pq-q">6. Speed: 7000 km in 8 hours?</div><div class="pq-input-row"><input class="pq-input" id="p6"><button class="pq-btn" onclick="checkN(6,875,'S = 7000 ÷ 8 = 875 km/h')">Check</button></div><div class="pq-feedback" id="pf6"></div></div>
+    <div class="pq"><div class="pq-q">7. F = ma: mass 90 kg, acceleration 10 m/s². Force?</div><div class="pq-input-row"><input class="pq-input" id="p7"><button class="pq-btn" onclick="checkN(7,900,'F = 90 × 10 = 900 N')">Check</button></div><div class="pq-feedback" id="pf7"></div></div>
+    <div class="pq"><div class="pq-q">8. Object weighs 350 N on Earth. Mass?</div><div class="pq-input-row"><input class="pq-input" id="p8"><button class="pq-btn" onclick="checkN(8,35,'m = 350 ÷ 10 = 35 kg')">Check</button></div><div class="pq-feedback" id="pf8"></div></div>
+    <div class="pq"><div class="pq-q">9. Speed: 15 m tree in 600 seconds?</div><div class="pq-input-row"><input class="pq-input" id="p9"><button class="pq-btn" onclick="checkN(9,0.025,'S = 15 ÷ 600 = 0.025 m/s')">Check</button></div><div class="pq-feedback" id="pf9"></div></div>
+    <div class="pq"><div class="pq-q">10. Is a wheelbarrow a 1st, 2nd, or 3rd class lever?</div><div class="pq-input-row"><input class="pq-input" id="p10"><button class="pq-btn" onclick="checkWord(10,'2nd','Wheelbarrow: Fulcrum (wheel) → Load (tray) → Effort (handles) = 2nd class')">Check</button></div><div class="pq-feedback" id="pf10"></div></div>
   </div>
 </div>
 
 <!-- ═══ QUIZ ═══ -->
 <div id="sec-quiz" class="sec">
-  <div class="sc"><div class="sn" id="qs">0 / 0</div><div class="sl">correct answers</div></div>
+  <div class="sc"><div class="sn" id="qs">0 / 0</div><div class="sl">correct</div></div>
   <div id="qq"></div>
-  <button class="rbtn" onclick="resetQuiz()">↺ Reset quiz</button>
+  <button class="rbtn" onclick="resetQuiz()">↺ Reset</button>
 </div>
 
 <!-- ═══ CHECKLIST ═══ -->
 <div id="sec-checklist" class="sec">
   <div class="card">
-    <h2>Forces checklist — AC9S7U04</h2>
-    <p style="font-size:12px;margin-bottom:0.75rem">Click each item to mark it done.</p>
+    <h2>Exam checklist — based on revision sheet</h2>
     <ul class="cl">
-      <li onclick="toggleCheck(this)">I can define a force as a push or pull measured in Newtons (N)</li>
-      <li onclick="toggleCheck(this)">I can classify forces as contact or non-contact and give examples of each</li>
-      <li onclick="toggleCheck(this)">I can name and describe: friction, normal force, tension, applied force, air resistance, gravity, magnetic force, electrostatic force</li>
-      <li onclick="toggleCheck(this)">I understand balanced forces mean net force = 0 N and no change in motion</li>
-      <li onclick="toggleCheck(this)">I understand unbalanced forces mean net force ≠ 0 N and the object changes its motion</li>
-      <li onclick="toggleCheck(this)">I can calculate net force for forces acting in the same direction</li>
-      <li onclick="toggleCheck(this)">I can calculate net force for forces acting in opposite directions</li>
-      <li onclick="toggleCheck(this)">I can determine the direction of the net force</li>
-      <li onclick="toggleCheck(this)">I can draw a force diagram using labelled arrows to represent forces on an object</li>
-      <li onclick="toggleCheck(this)">I can explain the difference between mass (kg) and weight (N)</li>
+      <li onclick="toggleCheck(this)">I can define a force and state its unit (Newtons)</li>
+      <li onclick="toggleCheck(this)">I can classify forces as contact or non-contact with examples</li>
+      <li onclick="toggleCheck(this)">I can name and describe: friction, normal, tension, applied, air resistance, upthrust, gravity, magnetic, electrostatic</li>
+      <li onclick="toggleCheck(this)">I can identify a spring balance (Newton meter) and explain how it works</li>
+      <li onclick="toggleCheck(this)">I can explain how air molecules cause air resistance and why it increases with speed</li>
+      <li onclick="toggleCheck(this)">I can define balanced forces and unbalanced forces</li>
+      <li onclick="toggleCheck(this)">I know that 0 N net force means either stationary OR constant speed</li>
+      <li onclick="toggleCheck(this)">I can calculate net force (same direction: add; opposite: subtract)</li>
+      <li onclick="toggleCheck(this)">I can draw force diagrams with correct arrow direction and length</li>
+      <li onclick="toggleCheck(this)">I know the difference between mass (kg) and weight (N)</li>
       <li onclick="toggleCheck(this)">I can calculate weight using W = m × g</li>
-      <li onclick="toggleCheck(this)">I can explain how a larger force causes a greater change in motion</li>
-      <li onclick="toggleCheck(this)">I can explain how a larger mass means less change in motion for the same force</li>
-      <li onclick="toggleCheck(this)">I can relate the direction of the net force to the direction of the change in motion</li>
-      <li onclick="toggleCheck(this)">I can describe everyday examples of balanced and unbalanced forces</li>
+      <li onclick="toggleCheck(this)">I can explain the difference between free fall and terminal velocity</li>
+      <li onclick="toggleCheck(this)">I can use S = D ÷ T and rearrange for distance and time</li>
+      <li onclick="toggleCheck(this)">I can convert units (minutes → hours or seconds) before calculating speed</li>
+      <li onclick="toggleCheck(this)">I can use F = m × a and rearrange for mass and acceleration</li>
+      <li onclick="toggleCheck(this)">I can name 3 types of simple machines</li>
+      <li onclick="toggleCheck(this)">I can identify the 3 parts of a lever: effort, load, fulcrum</li>
+      <li onclick="toggleCheck(this)">I can classify levers as 1st, 2nd, or 3rd class (FLE rule)</li>
+      <li onclick="toggleCheck(this)">I can classify real objects (scissors, wheelbarrow, fishing rod, etc.) by lever class</li>
+      <li onclick="toggleCheck(this)">I can define inertia and explain how mass affects it</li>
+      <li onclick="toggleCheck(this)">I can explain why a heavier trolley is harder to push around a corner</li>
     </ul>
   </div>
   <div class="card">
-    <h2>Key formula and facts to know</h2>
-    <div class="eb purple"><strong>Weight formula:</strong> W = m × g (Weight in N = mass in kg × gravitational field strength in N/kg)</div>
-    <div class="eb green"><strong>On Earth:</strong> g = 10 N/kg</div>
-    <div class="eb amber"><strong>Balanced forces:</strong> net force = 0 N → no change in motion</div>
-    <div class="eb blue"><strong>Unbalanced forces:</strong> net force ≠ 0 N → object accelerates in direction of net force</div>
-    <div class="eb grey"><strong>Contact forces:</strong> friction, normal, tension, applied, air resistance<br><strong>Non-contact forces:</strong> gravity, magnetic, electrostatic</div>
+    <h2>Formulas to know</h2>
+    <div class="eb purple"><strong>Weight:</strong> W = m × g &nbsp;(Earth: g = 10 N/kg)</div>
+    <div class="eb blue"><strong>Speed:</strong> S = D ÷ T &nbsp;|&nbsp; D = S × T &nbsp;|&nbsp; T = D ÷ S</div>
+    <div class="eb red"><strong>Force:</strong> F = m × a &nbsp;|&nbsp; a = F ÷ m &nbsp;|&nbsp; m = F ÷ a</div>
+    <div class="eb green"><strong>Net force same dir:</strong> Add &nbsp;|&nbsp; <strong>Opposite dir:</strong> Subtract (direction of larger)</div>
+    <div class="eb amber"><strong>Lever classes (FLE):</strong> 1st = Fulcrum middle &nbsp;|&nbsp; 2nd = Load middle &nbsp;|&nbsp; 3rd = Effort middle</div>
   </div>
 </div>
+
 </div>
-
 <script>
-// ─── Nav ─────────────────────────────────────────────────────
-function show(id,btn){
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  document.getElementById('sec-'+id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='diagrams') setTimeout(()=>{initCanvas();drawFD();},50);
-}
+function show(id,btn){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active');if(id==='diagrams')setTimeout(()=>{initCanvas();drawFD()},50)}
 function toggleCheck(el){el.classList.toggle('done')}
-function tw(el){
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('open');
-}
+function tw(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open')}
 
-// ─── Force type info ──────────────────────────────────────────
-const forceData={
-  friction:{name:'Friction',detail:'<strong>Friction</strong> is a contact force that opposes the motion of an object sliding or rolling over a surface. It always acts in the <em>opposite direction</em> to motion. Friction can be useful (stopping a car, gripping a surface) or a problem (slowing machines, generating heat). Rougher surfaces produce more friction. Smooth or oily surfaces reduce friction.'},
-  normal:{name:'Normal force',detail:'<strong>Normal force</strong> is the force a surface exerts on an object resting on it. It always acts <em>perpendicular</em> (at a right angle) to the surface — usually upward for a horizontal surface. It balances the weight of the object, preventing it from falling through the surface.'},
-  tension:{name:'Tension',detail:'<strong>Tension</strong> is the force transmitted through a string, rope, cable or chain when it is pulled tight. When you swing a ball on a string, the tension in the string pulls the ball toward the centre. Tension always pulls — it cannot push.'},
-  applied:{name:'Applied force',detail:'An <strong>applied force</strong> is a force applied to an object by a person or another object making physical contact. Pushing a door, pulling a suitcase, and lifting a book are all applied forces. It is sometimes called "push" or "pull" force.'},
-  airres:{name:'Air resistance',detail:'<strong>Air resistance</strong> (drag) is a type of friction between an object moving through air and the air molecules around it. It always opposes the direction of motion. A larger surface area creates more air resistance — this is why a parachute slows a skydiver. Streamlined shapes reduce air resistance.'},
-  gravity:{name:'Gravity',detail:'<strong>Gravity</strong> is a non-contact attractive force between any two objects with mass. On Earth, the gravitational field pulls all objects toward the centre of the Earth. It gives objects their weight. The more mass an object has, the greater the gravitational force acting on it. Earth\'s gravitational field strength is approximately 10 N/kg.'},
-  magnetic:{name:'Magnetic force',detail:'<strong>Magnetic force</strong> is a non-contact force between magnets and magnetic materials (iron, steel, nickel, cobalt). Like poles repel, opposite poles attract. Magnetic forces act through a distance and even through some non-magnetic materials. Electromagnets use electric current to create magnetic fields.'},
-  electro:{name:'Electrostatic force',detail:'<strong>Electrostatic force</strong> is a non-contact force between electrically charged objects. Like charges repel, opposite charges attract. You see this when rubbing a balloon creates static electricity that attracts your hair or sticks to a wall. Lightning is caused by enormous electrostatic forces between clouds and the ground.'},
-};
-function showForce(id,card){
-  document.querySelectorAll('.force-card').forEach(c=>c.classList.remove('sel'));
-  card.classList.add('sel');
-  const d=forceData[id];
-  document.getElementById('force-info').style.display='block';
-  document.getElementById('force-detail').innerHTML=d.detail;
-}
+const forceData={friction:{detail:'<strong>Friction</strong> is a contact force that opposes motion between surfaces. Always acts opposite to the direction of movement. Rougher surfaces = more friction.'},normal:{detail:'<strong>Normal force</strong> is exerted by a surface on an object resting on it. Acts perpendicular to the surface (usually upward). Balances gravity.'},tension:{detail:'<strong>Tension</strong> is the force through a rope, string or cable when pulled tight. Always pulls — cannot push.'},applied:{detail:'An <strong>applied force</strong> is a push or pull applied directly to an object by a person or another object.'},airres:{detail:'<strong>Air resistance (drag)</strong> is friction between a moving object and air molecules. Opposes motion. Increases with speed and surface area.'},upthrust:{detail:'<strong>Upthrust (buoyancy)</strong> is the upward force a fluid exerts on a submerged object. If upthrust = weight → floats. If weight > upthrust → sinks.'},gravity:{detail:'<strong>Gravity</strong> is a non-contact attractive force between objects with mass. On Earth, g ≈ 10 N/kg. Pulls everything toward Earth\'s centre.'},magnetic:{detail:'<strong>Magnetic force</strong> acts between magnets and magnetic materials (iron, steel, nickel, cobalt). Like poles repel, opposite attract. Acts at a distance.'},electro:{detail:'<strong>Electrostatic force</strong> acts between charged objects. Like charges repel, opposite attract. Example: balloon on hair creating static.'}};
+function showForce(id,card){document.querySelectorAll('.force-card').forEach(c=>c.classList.remove('sel'));card.classList.add('sel');document.getElementById('force-info').style.display='block';document.getElementById('force-detail').innerHTML=forceData[id].detail}
 
-// ─── Net force calculator ─────────────────────────────────────
-const opposites={right:'left',left:'right',up:'down',down:'up'};
-const dirLabels={right:'→ right',left:'← left',up:'↑ up',down:'↓ down'};
-function calcNet(){
-  const f1=parseFloat(document.getElementById('f1').value)||0;
-  const f2=parseFloat(document.getElementById('f2').value)||0;
-  const d1=document.getElementById('d1').value;
-  const d2=document.getElementById('d2').value;
-  const el=document.getElementById('nf-result');
-  if(!f1&&!f2){el.textContent='Enter both forces above';return;}
-  let net,dir;
-  if(d1===d2){net=f1+f2;dir=d1;}
-  else if(opposites[d1]===d2){
-    net=Math.abs(f1-f2);
-    dir=f1>=f2?d1:d2;
-  } else {
-    // non-aligned axes — simplified
-    el.textContent='Use forces along the same axis (both horizontal or both vertical)';return;
-  }
-  const balanced=net===0;
-  el.innerHTML=`Net force = <strong>${net} N ${balanced?'(balanced)':dirLabels[dir]}</strong><span class="sub">${balanced?'No change in motion — balanced forces':'Object accelerates '+dirLabels[dir]}</span>`;
-}
+function calcNet(){const f1=parseFloat(document.getElementById('f1').value)||0,f2=parseFloat(document.getElementById('f2').value)||0,d1=document.getElementById('d1').value,d2=document.getElementById('d2').value,el=document.getElementById('nf-result');if(!f1&&!f2){el.textContent='Enter both forces';return}let net,dir;if(d1===d2){net=f1+f2;dir=d1}else{net=Math.abs(f1-f2);dir=f1>=f2?d1:d2}const dl={right:'→ right',left:'← left'};el.innerHTML=net===0?'Net force = <strong>0 N (balanced)</strong><span class="sub">No change in motion</span>':`Net force = <strong>${net} N ${dl[dir]}</strong><span class="sub">Unbalanced → accelerates ${dl[dir]}</span>`}
 
-// ─── Weight calculator ────────────────────────────────────────
-function calcWeight(){
-  const m=parseFloat(document.getElementById('wm').value);
-  const g=parseFloat(document.getElementById('wloc').value);
-  const loc=document.getElementById('wloc').options[document.getElementById('wloc').selectedIndex].text.split(' ')[0];
-  const el=document.getElementById('weight-result');
-  if(isNaN(m)||m<=0){el.textContent='Enter mass above';return;}
-  const w=(m*g).toFixed(1);
-  el.innerHTML=`W = ${m} × ${g} = <strong>${w} N</strong><span class="sub">on ${loc} | mass stays ${m} kg everywhere</span>`;
-}
+function calcWeight(){const m=parseFloat(document.getElementById('wm').value),g=parseFloat(document.getElementById('wloc').value),el=document.getElementById('weight-result');if(isNaN(m)||m<=0){el.textContent='Enter mass';return}el.innerHTML=`W = ${m} × ${g} = <strong>${(m*g).toFixed(1)} N</strong>`}
 
-// ─── Canvas force diagram ─────────────────────────────────────
+function calcSpeed(){const find=document.getElementById('sfind').value,d=parseFloat(document.getElementById('sd').value),s=parseFloat(document.getElementById('ss').value),t=parseFloat(document.getElementById('st').value),el=document.getElementById('speed-result');if(find==='speed'&&d&&t)el.innerHTML=`S = ${d} ÷ ${t} = <strong>${(d/t).toFixed(2)}</strong>`;else if(find==='distance'&&s&&t)el.innerHTML=`D = ${s} × ${t} = <strong>${(s*t).toFixed(2)}</strong>`;else if(find==='time'&&d&&s)el.innerHTML=`T = ${d} ÷ ${s} = <strong>${(d/s).toFixed(2)}</strong>`;else el.textContent='Fill in two values'}
+
+function calcFma(){const find=document.getElementById('fmafind').value,f=parseFloat(document.getElementById('fma-f').value),m=parseFloat(document.getElementById('fma-m').value),a=parseFloat(document.getElementById('fma-a').value),el=document.getElementById('fma-result');if(find==='force'&&m&&a)el.innerHTML=`F = ${m} × ${a} = <strong>${(m*a).toLocaleString()} N</strong>`;else if(find==='mass'&&f&&a)el.innerHTML=`m = ${f} ÷ ${a} = <strong>${(f/a).toFixed(2)} kg</strong>`;else if(find==='acc'&&f&&m)el.innerHTML=`a = ${f} ÷ ${m} = <strong>${(f/m).toFixed(2)} m/s²</strong>`;else el.textContent='Fill in two values'}
+
 let cvs,ctx;
-function initCanvas(){
-  cvs=document.getElementById('fd-cvs');
-  const wrap=document.getElementById('fd-canvas');
-  cvs.width=wrap.offsetWidth||400;
-  cvs.height=220;
-  ctx=cvs.getContext('2d');
-}
-function drawFD(){
-  if(!cvs){initCanvas();}
-  const fu=parseInt(document.getElementById('fu').value);
-  const fd=parseInt(document.getElementById('fd').value);
-  const fr=parseInt(document.getElementById('fr').value);
-  const fl=parseInt(document.getElementById('fl').value);
-  document.getElementById('fu-v').textContent=fu;
-  document.getElementById('fd-v').textContent=fd;
-  document.getElementById('fr-v').textContent=fr;
-  document.getElementById('fl-v').textContent=fl;
-  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#fafaf8';ctx.fillRect(0,0,W,H);
-  // Object box
-  ctx.fillStyle='#2d1b69';ctx.beginPath();ctx.roundRect(cx-30,cy-22,60,44,6);ctx.fill();
-  ctx.fillStyle='white';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText('Object',cx,cy+4);
-  // Arrow helper
-  function arrow(x1,y1,x2,y2,color,label,mag){
-    if(mag===0) return;
-    ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2;
-    const len=Math.hypot(x2-x1,y2-y1);
-    const angle=Math.atan2(y2-y1,x2-x1);
-    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-    ctx.save();ctx.translate(x2,y2);ctx.rotate(angle);
-    ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-10,-5);ctx.lineTo(-10,5);ctx.closePath();ctx.fill();
-    ctx.restore();
-    ctx.font='bold 10px system-ui';ctx.fillStyle=color;
-    const lx=x2+(x2-x1)*0.15,ly=y2+(y2-y1)*0.15;
-    ctx.fillText(label+' '+mag+'N',lx,ly);
-  }
-  const scale=0.9;
-  arrow(cx,cy-22,cx,cy-22-fu*scale,'#E53E3E','Up',fu);
-  arrow(cx,cy+22,cx,cy+22+fd*scale,'#2d1b69','Down',fd);
-  arrow(cx+30,cy,cx+30+fr*scale,cy,'#1a7a4a','Right',fr);
-  arrow(cx-30,cy,cx-30-fl*scale,cy,'#b87c12','Left',fl);
-  // Net force status
-  const netV=fu-fd,netH=fr-fl;
-  let status='';
-  if(netV===0&&netH===0){status='✓ Balanced — net force = 0 N — no change in motion';}
-  else {
-    const parts=[];
-    if(netV>0) parts.push(`${netV} N upward`);
-    else if(netV<0) parts.push(`${Math.abs(netV)} N downward`);
-    if(netH>0) parts.push(`${netH} N to the right`);
-    else if(netH<0) parts.push(`${Math.abs(netH)} N to the left`);
-    status='⚡ Unbalanced — net force: '+parts.join(' + ')+' — object accelerates';
-  }
-  document.getElementById('fd-status').textContent=status;
-}
-setTimeout(()=>{initCanvas();drawFD();},100);
+function initCanvas(){cvs=document.getElementById('fd-cvs');const w=document.getElementById('fd-cvs').parentElement;cvs.width=w.offsetWidth||400;cvs.height=220;ctx=cvs.getContext('2d')}
+function drawFD(){if(!cvs)initCanvas();const fu=+document.getElementById('fu').value,fd=+document.getElementById('fdd').value,fr=+document.getElementById('fr').value,fl=+document.getElementById('fl').value;document.getElementById('fu-v').textContent=fu;document.getElementById('fd-v').textContent=fd;document.getElementById('fr-v').textContent=fr;document.getElementById('fl-v').textContent=fl;const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;ctx.clearRect(0,0,W,H);ctx.fillStyle='#fafaf8';ctx.fillRect(0,0,W,H);ctx.fillStyle='#2d1b69';ctx.beginPath();ctx.roundRect(cx-30,cy-22,60,44,6);ctx.fill();ctx.fillStyle='white';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.fillText('Object',cx,cy+4);function arrow(x1,y1,x2,y2,c,l,m){if(!m)return;ctx.strokeStyle=c;ctx.fillStyle=c;ctx.lineWidth=2;const a=Math.atan2(y2-y1,x2-x1);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.save();ctx.translate(x2,y2);ctx.rotate(a);ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-10,-5);ctx.lineTo(-10,5);ctx.closePath();ctx.fill();ctx.restore();ctx.font='bold 10px system-ui';ctx.fillText(l+' '+m+'N',x2+(x2-x1)*0.15,y2+(y2-y1)*0.15)}const s=0.9;arrow(cx,cy-22,cx,cy-22-fu*s,'#E53E3E','Up',fu);arrow(cx,cy+22,cx,cy+22+fd*s,'#2d1b69','Down',fd);arrow(cx+30,cy,cx+30+fr*s,cy,'#1a7a4a','Right',fr);arrow(cx-30,cy,cx-30-fl*s,cy,'#b87c12','Left',fl);const nV=fu-fd,nH=fr-fl;let st='';if(nV===0&&nH===0)st='✓ Balanced — net force = 0 N';else{const p=[];if(nV>0)p.push(nV+'N up');else if(nV<0)p.push(Math.abs(nV)+'N down');if(nH>0)p.push(nH+'N right');else if(nH<0)p.push(Math.abs(nH)+'N left');st='⚡ Unbalanced — net: '+p.join(' + ')+' → accelerates'}document.getElementById('fd-status').textContent=st}
+setTimeout(()=>{initCanvas();drawFD()},100);
 
-// ─── Practice answer checking ─────────────────────────────────
-function checkN(n,ans,working){
-  const raw=document.getElementById('p'+n).value.trim();
-  const user=parseFloat(raw);
-  const fb=document.getElementById('pf'+n);
-  fb.classList.add('show');
-  if(Math.abs(user-ans)<0.5){
-    fb.className='pq-feedback correct show';
-    fb.innerHTML='✓ Correct! '+working;
-  } else {
-    fb.className='pq-feedback wrong show';
-    fb.innerHTML='✗ Not quite. '+working;
-  }
-}
-function checkWord(n,ans,working){
-  const raw=document.getElementById('p'+n).value.trim().toLowerCase();
-  const fb=document.getElementById('pf'+n);
-  fb.classList.add('show');
-  if(raw.includes(ans.toLowerCase())){
-    fb.className='pq-feedback correct show';
-    fb.innerHTML='✓ Correct! '+working;
-  } else {
-    fb.className='pq-feedback wrong show';
-    fb.innerHTML='✗ Not quite. '+working;
-  }
-}
+function checkN(n,ans,w){const v=parseFloat(document.getElementById('p'+n).value),fb=document.getElementById('pf'+n);fb.classList.add('show');if(Math.abs(v-ans)<0.5){fb.className='pq-feedback correct show';fb.innerHTML='✓ '+w}else{fb.className='pq-feedback wrong show';fb.innerHTML='✗ '+w}}
+function checkWord(n,ans,w){const v=document.getElementById('p'+n).value.trim().toLowerCase(),fb=document.getElementById('pf'+n);fb.classList.add('show');if(v.includes(ans.toLowerCase())){fb.className='pq-feedback correct show';fb.innerHTML='✓ '+w}else{fb.className='pq-feedback wrong show';fb.innerHTML='✗ '+w}}
 
-// ─── Quiz ─────────────────────────────────────────────────────
 const Qs=[
-  {q:'What is a force?',opts:['The speed of an object','A push or pull that can change an object\'s motion','The mass of an object','The weight of an object in kilograms'],ans:1,exp:'A force is a push or pull. Forces can change an object\'s speed, direction or shape. Forces are measured in Newtons (N).'},
-  {q:'Which of the following is a NON-CONTACT force?',opts:['Friction','Normal force','Gravity','Tension'],ans:2,exp:'Gravity is a non-contact force — it acts at a distance without objects needing to touch. Friction, normal force and tension all require physical contact.'},
-  {q:'Two people push a box in opposite directions. Person A pushes right with 50 N and Person B pushes left with 30 N. What is the net force?',opts:['80 N to the right','20 N to the right','80 N to the left','20 N to the left'],ans:1,exp:'Opposite directions → subtract: 50 − 30 = 20 N. Direction = direction of the larger force (right). Net force = 20 N to the right.'},
-  {q:'An object has balanced forces acting on it. What can you conclude?',opts:['The object must be stationary','The object must be moving','The object is not changing its motion (could be still or moving at constant speed)','The forces on the object are all zero'],ans:2,exp:'Balanced forces mean net force = 0 N. The object does NOT change its motion — it could be stationary OR moving at constant speed in a straight line.'},
-  {q:'What is the difference between mass and weight?',opts:['There is no difference — they are the same thing','Mass is in Newtons, weight is in kilograms','Mass is the amount of matter (kg) and stays constant; weight is the gravitational force (N) and changes with gravity','Mass changes on the Moon; weight stays the same'],ans:2,exp:'Mass is the amount of matter in an object, measured in kg — it never changes. Weight is the gravitational force on an object, measured in N — it changes depending on the gravitational field strength.'},
-  {q:'A student has a mass of 70 kg. What is their weight on Earth? (g = 10 N/kg)',opts:['7 N','70 N','700 N','7000 N'],ans:2,exp:'W = m × g = 70 × 10 = 700 N. Weight is the gravitational force pulling the student down.'},
-  {q:'Which force always opposes the direction of motion?',opts:['Normal force','Tension','Gravity','Friction'],ans:3,exp:'Friction always acts in the opposite direction to motion. It is a contact force between surfaces that resists movement.'},
-  {q:'A car engine pushes forward with 5000 N. Friction and air resistance push backward with 5000 N. What happens?',opts:['The car speeds up','The car slows down','The car moves at constant speed','The car reverses'],ans:2,exp:'Net force = 5000 − 5000 = 0 N. Balanced forces → no change in motion → car continues at the same speed.'},
-  {q:'The same force is applied to a 2 kg ball and a 10 kg ball. Which ball accelerates more?',opts:['The 10 kg ball','The 2 kg ball','Both accelerate the same amount','Neither accelerates'],ans:1,exp:'For the same force, a smaller mass produces greater acceleration. The 2 kg ball has less mass, so it is easier to accelerate — it changes speed faster.'},
-  {q:'What does the LENGTH of an arrow in a force diagram represent?',opts:['The direction of the force','The type of force','The magnitude (size) of the force','The colour of the force'],ans:2,exp:'In force diagrams, longer arrows represent larger forces. The direction of the arrow shows which way the force acts. Both length (magnitude) and direction must be shown correctly.'},
-  {q:'A 50 kg person travels to the Moon where g = 1.6 N/kg. What is their weight on the Moon?',opts:['50 N','80 N','500 N','8 N'],ans:1,exp:'W = m × g = 50 × 1.6 = 80 N. Their mass stays 50 kg, but weight is much less on the Moon because gravity is weaker.'},
-  {q:'Which scenario shows UNBALANCED forces?',opts:['A book sitting still on a shelf','A car travelling at exactly 60 km/h on a straight road','A skydiver in free fall accelerating downward','Two equal teams in a tug-of-war with no movement'],ans:2,exp:'A skydiver in early free fall has gravity (large) > air resistance (small), so net force ≠ 0 → unbalanced → the skydiver accelerates downward.'},
+{q:'What is a force?',opts:['The speed of an object','A push or pull measured in Newtons','The mass of an object','The weight in kilograms'],ans:1,exp:'A force is a push or pull that can change speed, direction or shape. Measured in Newtons (N).'},
+{q:'Which is a NON-CONTACT force?',opts:['Friction','Normal force','Gravity','Air resistance'],ans:2,exp:'Gravity acts at a distance. The others require physical contact.'},
+{q:'Net force: 50 N right, 30 N left?',opts:['80 N right','20 N right','80 N left','20 N left'],ans:1,exp:'Opposite → subtract: 50 − 30 = 20 N in direction of larger (right).'},
+{q:'0 N resultant force means the object:',opts:['Must be stationary','Must be moving','Is not changing its motion','Has no forces on it'],ans:2,exp:'0 N means balanced — no change in motion (could be still or constant speed).'},
+{q:'Mass vs weight: which is correct?',opts:['Same thing','Mass in N, weight in kg','Mass (kg) stays same; weight (N) changes with gravity','Mass changes on Moon'],ans:2,exp:'Mass is matter in kg (constant). Weight is gravitational force in N (changes).'},
+{q:'W = m × g: 70 kg on Earth (g=10)?',opts:['7 N','70 N','700 N','7000 N'],ans:2,exp:'W = 70 × 10 = 700 N.'},
+{q:'S = D ÷ T: 40 m in 10 seconds?',opts:['400 m/s','4 m/s','0.25 m/s','50 m/s'],ans:1,exp:'S = 40 ÷ 10 = 4 m/s.'},
+{q:'F = ma: 900 kg × 150 m/s² = ?',opts:['6 N','1050 N','135,000 N','13,500 N'],ans:2,exp:'F = 900 × 150 = 135,000 N.'},
+{q:'A wheelbarrow is which class of lever?',opts:['1st class','2nd class','3rd class','Not a lever'],ans:1,exp:'Wheelbarrow: Fulcrum (wheel) → Load (tray) → Effort (handles) = 2nd class (load in middle).'},
+{q:'What is inertia?',opts:['A type of force','Resistance to change in motion','The speed of an object','Weight divided by mass'],ans:1,exp:'Inertia is an object\'s resistance to change in motion. More mass = more inertia.'},
+{q:'At terminal velocity, forces are:',opts:['Unbalanced — gravity wins','Unbalanced — air resistance wins','Balanced — gravity equals air resistance','Zero — no forces act'],ans:2,exp:'At terminal velocity, gravity = air resistance (balanced). The skydiver falls at constant speed.'},
+{q:'In a 1st class lever, what is in the middle?',opts:['Effort','Load','Fulcrum','Nothing'],ans:2,exp:'1st class: Fulcrum in the middle. Remember FLE: 1st=Fulcrum, 2nd=Load, 3rd=Effort.'},
+{q:'4 km in 5 minutes. Average speed in km/h?',opts:['0.8 km/h','20 km/h','48 km/h','800 km/h'],ans:2,exp:'5 min = 5/60 hr. S = 4 ÷ (5/60) = 4 × 12 = 48 km/h.'},
+{q:'Air resistance increases with speed because:',opts:['Gravity gets stronger','More air molecules are hit per second and harder','The object gets heavier','Friction disappears'],ans:1,exp:'Faster = more collisions with air molecules per second, each more forceful.'},
 ];
 let answered=new Array(Qs.length).fill(null);
-function buildQuiz(){
-  const c=document.getElementById('qq');c.innerHTML='';
-  Qs.forEach((q,qi)=>{
-    const d=document.createElement('div');d.className='qbox';
-    d.innerHTML='<p>Q'+(qi+1)+': '+q.q+'</p><div class="qopts">'+q.opts.map((o,oi)=>'<button class="qo" onclick="answer('+qi+','+oi+',this)">'+o+'</button>').join('')+'</div><div class="qfb" id="qf-'+qi+'"></div>';
-    c.appendChild(d);
-  });
-  updateScore();
-}
-function answer(qi,oi,btn){
-  if(answered[qi]!==null)return;
-  const q=Qs[qi];const ok=oi===q.ans;answered[qi]=ok;
-  btn.parentElement.querySelectorAll('.qo').forEach((b,i)=>{
-    if(i===q.ans)b.classList.add('correct');
-    else if(i===oi&&!ok)b.classList.add('wrong');
-    b.disabled=true;
-  });
-  const fb=document.getElementById('qf-'+qi);
-  fb.className='qfb show '+(ok?'correct':'wrong');
-  fb.textContent=(ok?'✓ Correct! ':'✗ Not quite. ')+q.exp;
-  updateScore();
-}
-function updateScore(){
-  const done=answered.filter(a=>a!==null).length;
-  document.getElementById('qs').textContent=answered.filter(a=>a===true).length+' / '+done;
-}
+function buildQuiz(){const c=document.getElementById('qq');c.innerHTML='';Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='qbox';d.innerHTML='<p>Q'+(i+1)+': '+q.q+'</p><div class="qopts">'+q.opts.map((o,j)=>'<button class="qo" onclick="answer('+i+','+j+',this)">'+o+'</button>').join('')+'</div><div class="qfb" id="qf-'+i+'"></div>';c.appendChild(d)});updateScore()}
+function answer(i,j,btn){if(answered[i]!==null)return;const q=Qs[i],ok=j===q.ans;answered[i]=ok;btn.parentElement.querySelectorAll('.qo').forEach((b,k)=>{if(k===q.ans)b.classList.add('correct');else if(k===j&&!ok)b.classList.add('wrong');b.disabled=true});const fb=document.getElementById('qf-'+i);fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=(ok?'✓ ':'✗ ')+q.exp;updateScore()}
+function updateScore(){const d=answered.filter(a=>a!==null).length;document.getElementById('qs').textContent=answered.filter(a=>a===true).length+' / '+d}
 function resetQuiz(){answered=new Array(Qs.length).fill(null);buildQuiz()}
 buildQuiz();
 </script>
