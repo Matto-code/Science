@@ -14,7 +14,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .filter-section{margin-bottom:0.6rem}
 .filter-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:#aaa;margin-bottom:5px}
 .filter-row{display:flex;gap:5px;flex-wrap:wrap}
-.fb{padding:5px 12px;border:1px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;background:white;color:#5f5e5a;transition:all 0.15s;white-space:nowrap}
+.fb{padding:5px 11px;border:1px solid #ccc;border-radius:20px;font-size:11px;cursor:pointer;background:white;color:#5f5e5a;transition:all 0.15s;white-space:nowrap}
 .fb:hover:not(.active):not(.active-n):not(.active-k){background:#e8e6e0}
 .fb.active{background:#2d1b69;color:white;border-color:#2d1b69}
 .fb.active-n{background:#A32D2D;color:white;border-color:#A32D2D}
@@ -40,7 +40,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 .card-topic{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.75rem;display:inline-block;border-radius:4px;padding:2px 8px}
 .card-q{font-size:16px;font-weight:500;color:#2c2c2a;line-height:1.5;margin-bottom:1rem}
 .answer-input-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.4px;color:#aaa;margin-bottom:6px}
-.answer-input{width:100%;border:1px solid #e0dfd8;border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;resize:vertical;min-height:80px;color:#2c2c2a;background:#fafaf8;line-height:1.5;outline:none;transition:border-color 0.15s}
+.answer-input{width:100%;border:1px solid #e0dfd8;border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;resize:vertical;min-height:80px;color:#2c2c2a;background:#fafaf8;line-height:1.5;outline:none}
 .answer-input:focus{border-color:#2d1b69;background:white}
 .flip-btn{margin-top:0.75rem;width:100%;padding:10px;background:#2d1b69;color:white;border:none;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer}
 .flip-btn:hover{background:#3d2599}
@@ -78,19 +78,22 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
 <body>
 <div class="wrap">
 <div class="header">
-  <h1>Year 7 Physics Flashcards — Forces</h1>
-  <p>Write your answer, flip to compare, then rate yourself</p>
+  <h1>Year 7 Physics Flashcards — Exam Revision</h1>
+  <p>Based on your teacher's revision sheet — write, flip, compare, rate</p>
 </div>
-
 <div class="filter-section">
   <div class="filter-label">By topic</div>
-  <div class="filter-row" id="topic-filters">
+  <div class="filter-row">
     <button class="fb active" onclick="setFilter('all',this)">All cards</button>
     <button class="fb" onclick="setFilter('types',this)">Types of forces</button>
     <button class="fb" onclick="setFilter('balanced',this)">Balanced/Unbalanced</button>
+    <button class="fb" onclick="setFilter('netforce',this)">Net force</button>
     <button class="fb" onclick="setFilter('gravity',this)">Gravity &amp; weight</button>
     <button class="fb" onclick="setFilter('diagrams',this)">Force diagrams</button>
-    <button class="fb" onclick="setFilter('motion',this)">Mass &amp; motion</button>
+    <button class="fb" onclick="setFilter('speed',this)">Speed/Distance/Time</button>
+    <button class="fb" onclick="setFilter('fma',this)">F = ma</button>
+    <button class="fb" onclick="setFilter('levers',this)">Simple machines</button>
+    <button class="fb" onclick="setFilter('motion',this)">Motion &amp; inertia</button>
   </div>
 </div>
 <div class="divider"></div>
@@ -102,23 +105,20 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
     <button class="fb" id="btn-unrated" onclick="setFilter('unrated',this)">⚪ Not yet rated (<span id="unrated-count">0</span>)</button>
   </div>
 </div>
-
 <div class="stats">
   <div class="stat-box" onclick="setFilter('all',document.querySelector('.fb'))"><div class="stat-num sn-t" id="st-total">0</div><div class="stat-lbl">Total rated</div></div>
   <div class="stat-box" onclick="setFilter('needs',document.getElementById('btn-needs'))"><div class="stat-num sn-n" id="st-needs">0</div><div class="stat-lbl">🔴 Needs work</div></div>
   <div class="stat-box" onclick="setFilter('knowit',document.getElementById('btn-knowit'))"><div class="stat-num sn-k" id="st-knowit">0</div><div class="stat-lbl">🟢 Know it!</div></div>
 </div>
-
 <div class="progress-row"><div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div><div class="progress-label" id="prog-label">0 / 0</div></div>
 <div class="card-num" id="card-num"></div>
-
 <div class="card-area" id="card-area">
   <div class="card-inner" id="card-inner">
     <div class="card-face" id="card-front">
       <span class="card-topic" id="topic-badge"></span>
       <div class="card-q" id="card-q"></div>
       <div class="answer-input-label">Your answer</div>
-      <textarea class="answer-input" id="answer-input" placeholder="Type your answer here before flipping…" onclick="event.stopPropagation()"></textarea>
+      <textarea class="answer-input" id="answer-input" placeholder="Type your answer here…" onclick="event.stopPropagation()"></textarea>
       <button class="flip-btn" onclick="flipCard()">Flip to check answer →</button>
     </div>
     <div class="card-face card-back" id="card-back">
@@ -127,184 +127,159 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f4f0;color:#2c
       <div class="back-section"><div class="back-section-label" style="color:#0d3d25">Correct answer</div><div class="correct-answer-box" id="card-a"></div></div>
       <div class="rating-hint">How did you go?</div>
       <div class="rating-row">
-        <button class="rating-btn again" onclick="rate('again')">🔴 Needs work<br><span style="font-size:11px;font-weight:400">Didn't get it</span></button>
-        <button class="rating-btn good" onclick="rate('good')">🟢 Know it!<br><span style="font-size:11px;font-weight:400">Got it right</span></button>
+        <button class="rating-btn again" onclick="rate('again')">🔴 Needs work</button>
+        <button class="rating-btn good" onclick="rate('good')">🟢 Know it!</button>
       </div>
       <button class="flip-back-btn" onclick="unflipCard()">← Back to question</button>
     </div>
     <div class="card-spacer" id="card-spacer" aria-hidden="true"></div>
   </div>
 </div>
-
 <div class="nav-row">
   <button class="nav-btn" id="btn-prev" onclick="prevCard()">← Previous</button>
   <button class="nav-btn" id="btn-next" onclick="nextCard()">Next →</button>
 </div>
-
 <div class="done-screen" id="done-screen">
-  <h2 id="done-title"></h2>
-  <p id="done-msg"></p>
+  <h2 id="done-title"></h2><p id="done-msg"></p>
   <div class="done-actions">
-    <button onclick="restartDeck()">Restart this deck</button>
-    <button onclick="setFilter('needs',document.getElementById('btn-needs'))" id="btn-do-needs" style="display:none">🔴 Review Needs work</button>
+    <button onclick="restartDeck()">Restart</button>
+    <button onclick="setFilter('needs',document.getElementById('btn-needs'))" id="btn-do-needs" style="display:none">🔴 Needs work</button>
     <button class="primary" onclick="setFilter('all',document.querySelector('.fb'))">All cards</button>
   </div>
 </div>
 </div>
-
 <script>
 const CARDS=[
-  // TYPES OF FORCES
-  {id:1,topic:'types',topicLabel:'Types of forces',q:'What is a force?',a:'A force is a <strong>push or pull</strong> that can change an object\'s speed, direction or shape. Forces are measured in <strong>Newtons (N)</strong>.'},
-  {id:2,topic:'types',topicLabel:'Types of forces',q:'What is the difference between a contact force and a non-contact force?',a:'<strong>Contact forces</strong> require physical contact between objects (e.g. friction, normal force, tension).<br><br><strong>Non-contact forces</strong> act at a distance without touching (e.g. gravity, magnetic, electrostatic).'},
-  {id:3,topic:'types',topicLabel:'Types of forces',q:'Name 5 contact forces.',a:'<strong>1. Friction</strong> — opposes motion between surfaces<br><strong>2. Normal force</strong> — surface pushes back on an object<br><strong>3. Tension</strong> — force through a rope/string<br><strong>4. Applied force</strong> — a direct push or pull<br><strong>5. Air resistance (drag)</strong> — friction from air'},
-  {id:4,topic:'types',topicLabel:'Types of forces',q:'Name 3 non-contact forces.',a:'<strong>1. Gravity</strong> — attracts all objects with mass toward each other<br><strong>2. Magnetic force</strong> — attraction/repulsion between magnets and magnetic materials<br><strong>3. Electrostatic force</strong> — attraction/repulsion between electrically charged objects'},
-  {id:5,topic:'types',topicLabel:'Types of forces',q:'What is friction? Is it contact or non-contact?',a:'Friction is a <strong>contact force</strong> that opposes the motion of an object sliding or rolling over a surface. It always acts in the <strong>opposite direction to motion</strong>. Rougher surfaces create more friction.'},
-  {id:6,topic:'types',topicLabel:'Types of forces',q:'What is the normal force?',a:'The <strong>normal force</strong> is a contact force exerted by a surface on an object resting on it. It acts <strong>perpendicular (at right angles)</strong> to the surface — usually straight up. It balances the weight of the object and stops it falling through the surface.'},
-  {id:7,topic:'types',topicLabel:'Types of forces',q:'What is air resistance? When is it strongest?',a:'<strong>Air resistance (drag)</strong> is a type of friction between a moving object and air molecules. It always opposes motion through air. It is stronger when:<br>• The object moves faster<br>• The object has a larger surface area<br>A parachute uses large surface area to maximise air resistance and slow a skydiver.'},
-  {id:8,topic:'types',topicLabel:'Types of forces',q:'Is gravity a contact or non-contact force? Explain.',a:'Gravity is a <strong>non-contact force</strong> — it acts at a distance without objects needing to touch. It is an attractive force between all objects with mass. On Earth, gravity pulls everything toward the centre of the planet.'},
+// TYPES OF FORCES
+{id:1,topic:'types',topicLabel:'Types of forces',q:'What is a contact force? Give 3 examples.',a:'A <strong>contact force</strong> requires physical contact between objects — they must be touching.<br><br>Examples: <strong>friction, normal force, tension, applied force (push/pull), air resistance</strong>'},
+{id:2,topic:'types',topicLabel:'Types of forces',q:'What is a non-contact force? Give 3 examples.',a:'A <strong>non-contact force</strong> acts at a distance — the objects do NOT need to touch.<br><br>Examples: <strong>gravity, magnetic force, electrostatic force</strong>'},
+{id:3,topic:'types',topicLabel:'Types of forces',q:'What is friction?',a:'<strong>Friction</strong> is a contact force that <strong>opposes motion</strong> between two surfaces in contact. It always acts in the <strong>opposite direction</strong> to the movement. Rougher surfaces produce more friction.'},
+{id:4,topic:'types',topicLabel:'Types of forces',q:'What is the normal force?',a:'The <strong>normal force</strong> is a contact force exerted by a surface on an object resting on it. It acts <strong>perpendicular</strong> (at right angles) to the surface — usually upward. It balances gravity, preventing the object from falling through.'},
+{id:5,topic:'types',topicLabel:'Types of forces',q:'What is upthrust (buoyancy)?',a:'<strong>Upthrust</strong> is the upward force exerted by a fluid (liquid or gas) on an object submerged in it. It acts in the <strong>opposite direction to gravity</strong>. If upthrust equals weight, the object floats. If weight is greater, it sinks.'},
+{id:6,topic:'types',topicLabel:'Types of forces',q:'What is electrostatic force? Give an example.',a:'<strong>Electrostatic force</strong> is a non-contact force between electrically <strong>charged objects</strong>. Like charges repel, opposite charges attract.<br><br>Example: rubbing a balloon on hair creates static charge — the balloon sticks to a wall.'},
+{id:7,topic:'types',topicLabel:'Types of forces',q:'What instrument is used to measure force? What unit does it measure in?',a:'A <strong>spring balance</strong> (also called a <strong>Newton meter</strong>) measures force. It measures in <strong>Newtons (N)</strong>.<br><br>It works by stretching a spring — the more force applied, the more the spring stretches, and the higher the reading.'},
+{id:8,topic:'types',topicLabel:'Types of forces',q:'Explain how molecules in the air cause air resistance.',a:'As an object moves through air, it <strong>collides with air molecules</strong> in its path. These collisions push back against the object, creating a force that <strong>opposes the direction of motion</strong>. This opposing force is air resistance (drag).'},
+{id:9,topic:'types',topicLabel:'Types of forces',q:'Explain why air resistance is larger when a car is travelling faster.',a:'At higher speeds, the car <strong>hits more air molecules per second</strong> and each collision is <strong>more forceful</strong>. The faster the object moves, the more air molecules it encounters and the harder they push back — so air resistance increases with speed.'},
 
-  // BALANCED / UNBALANCED
-  {id:9,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'What are balanced forces? What is the result?',a:'<strong>Balanced forces</strong> are equal in size and opposite in direction — they cancel out. The <strong>net force = 0 N</strong>.<br><br>Result: <strong>no change in motion</strong>. The object stays still, or keeps moving at constant speed in a straight line.'},
-  {id:10,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'What are unbalanced forces? What is the result?',a:'<strong>Unbalanced forces</strong> are NOT equal — they don\'t cancel out. The <strong>net force ≠ 0 N</strong>.<br><br>Result: the object <strong>changes its motion</strong> — it speeds up, slows down, or changes direction (it accelerates).'},
-  {id:11,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'What is net force?',a:'<strong>Net force</strong> is the overall (resultant) force on an object after all forces are combined.<br><br><strong>Same direction:</strong> add the forces<br><strong>Opposite directions:</strong> subtract the smaller from the larger<br><br>The net force determines whether the object accelerates and in which direction.'},
-  {id:12,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'Two forces of 50 N act on an object in opposite directions. What is the net force? Is this balanced or unbalanced?',a:'Net force = 50 − 50 = <strong>0 N</strong>.<br><br>This is <strong>balanced</strong> — the forces cancel out. There is no change in motion.'},
-  {id:13,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'A box is pushed right with 70 N. Friction acts left with 30 N. What is the net force and what happens?',a:'Net force = 70 − 30 = <strong>40 N to the right</strong>.<br><br>The forces are <strong>unbalanced</strong> → the box accelerates to the right.'},
-  {id:14,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'A car travels at constant speed. Are the forces balanced or unbalanced? Explain.',a:'The forces are <strong>balanced</strong> (net force = 0 N).<br><br>The engine force forward equals the friction + air resistance backward. No net force means no change in motion — constant speed in a straight line.<br><br>Remember: balanced ≠ no forces. It means the forces cancel out.'},
-  {id:15,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'Person A pushes a box right with 40 N. Person B pushes the same box right with 25 N. What is the net force?',a:'Both forces are in the <strong>same direction</strong> → add them.<br><br>Net force = 40 + 25 = <strong>65 N to the right</strong>.<br><br>Unbalanced → the box accelerates to the right.'},
+// BALANCED / UNBALANCED
+{id:10,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'Define balanced forces.',a:'<strong>Balanced forces</strong> are forces that are <strong>equal in size</strong> and act in <strong>opposite directions</strong>. They cancel each other out, so the net force = <strong>0 N</strong>.<br><br>Result: <strong>no change in motion</strong> — the object stays still or continues at constant speed.'},
+{id:11,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'Define unbalanced forces.',a:'<strong>Unbalanced forces</strong> are forces that do <strong>NOT cancel out</strong> — one force is larger than the other. The net force is <strong>NOT zero</strong>.<br><br>Result: the object <strong>changes its motion</strong> — it speeds up, slows down, or changes direction.'},
+{id:12,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'If an object has a resultant force of 0 N, describe the 2 options of motion it can have.',a:'With a resultant force of 0 N (balanced forces), the object can either be:<br><br><strong>1. Stationary</strong> — staying completely still<br><strong>2. Moving at constant speed in a straight line</strong> — no acceleration<br><br>In both cases, there is <strong>no change in motion</strong>.'},
+{id:13,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'A person sits in a chair without moving. Are the forces balanced or unbalanced? Explain.',a:'The forces are <strong>balanced</strong>.<br><br><strong>Gravity</strong> pulls the person downward and the <strong>normal force</strong> of the chair pushes upward. These forces are equal and opposite → net force = 0 N → the person stays still.'},
+{id:14,topic:'balanced',topicLabel:'Balanced / Unbalanced',q:'A tug-of-war: one team pulls harder than the other. Are the forces balanced or unbalanced?',a:'The forces are <strong>unbalanced</strong>.<br><br>One team pulls with a greater force than the other. The net force is NOT zero — it acts in the direction of the stronger team. The rope (and the weaker team) <strong>accelerates toward the stronger team</strong>.'},
 
-  // GRAVITY & WEIGHT
-  {id:16,topic:'gravity',topicLabel:'Gravity & weight',q:'What is the difference between mass and weight?',a:'<strong>Mass</strong> = amount of matter in an object. Measured in <strong>kg</strong>. Stays the <strong>same everywhere</strong>.<br><br><strong>Weight</strong> = the gravitational force on an object. Measured in <strong>Newtons (N)</strong>. <strong>Changes</strong> depending on gravity.<br><br>Weight is a force; mass is not.'},
-  {id:17,topic:'gravity',topicLabel:'Gravity & weight',q:'What is the formula for calculating weight?',a:'<strong>W = m × g</strong><br><br>Weight (N) = mass (kg) × gravitational field strength (N/kg)<br><br>On Earth, g = 10 N/kg.<br>On the Moon, g = 1.6 N/kg.'},
-  {id:18,topic:'gravity',topicLabel:'Gravity & weight',q:'A student has mass 55 kg. What is their weight on Earth? (g = 10 N/kg)',a:'W = m × g<br>W = 55 × 10<br><strong>W = 550 N</strong> downward.<br><br>Weight is always directed toward the centre of the Earth.'},
-  {id:19,topic:'gravity',topicLabel:'Gravity & weight',q:'An object weighs 800 N on Earth (g = 10 N/kg). What is its mass?',a:'Rearrange the formula: m = W ÷ g<br>m = 800 ÷ 10<br><strong>m = 80 kg</strong><br><br>Mass stays 80 kg no matter where the object is.'},
-  {id:20,topic:'gravity',topicLabel:'Gravity & weight',q:'A 60 kg astronaut goes to the Moon (g = 1.6 N/kg). What is their weight? Does their mass change?',a:'W = m × g = 60 × 1.6 = <strong>96 N</strong><br><br>(Compared to 600 N on Earth — about 1/6)<br><br><strong>Mass stays 60 kg</strong> — mass never changes. Only weight changes because gravity is different.'},
-  {id:21,topic:'gravity',topicLabel:'Gravity & weight',q:'What is Earth\'s gravitational field strength and what does it mean?',a:'Earth\'s gravitational field strength is approximately <strong>10 N/kg</strong>.<br><br>This means for every 1 kg of mass, gravity pulls with a force of 10 N. A 5 kg bag experiences 50 N of gravitational force downward.'},
-  {id:22,topic:'gravity',topicLabel:'Gravity & weight',q:'Why do we say "I weigh 60 kg" in everyday life, but this is wrong in science?',a:'In everyday life, people use "weight" to mean mass. But in science:<br>• 60 kg is <strong>mass</strong> (amount of matter)<br>• <strong>Weight</strong> would be 60 × 10 = <strong>600 N</strong> (the force of gravity)<br><br>Mass is in kg. Weight is in Newtons. They are different things.'},
+// NET FORCE
+{id:15,topic:'netforce',topicLabel:'Net force',q:'A cyclist: 60 N forward, 15 N backward. What is the net force?',a:'Forces are in <strong>opposite directions</strong> → subtract.<br><br>Net force = 60 − 15 = <strong>45 N forward</strong> (→)<br><br>Unbalanced → cyclist accelerates forward.'},
+{id:16,topic:'netforce',topicLabel:'Net force',q:'A cyclist: 40 N forward, 10 N forward (same direction). What is the net force?',a:'Forces are in the <strong>same direction</strong> → add.<br><br>Net force = 40 + 10 = <strong>50 N forward</strong> (→)<br><br>Unbalanced → cyclist accelerates forward.'},
+{id:17,topic:'netforce',topicLabel:'Net force',q:'A cyclist: 200 N forward, 50 N backward. What is the net force?',a:'Opposite directions → subtract.<br><br>Net force = 200 − 50 = <strong>150 N forward</strong> (→)<br><br>Unbalanced → cyclist accelerates forward.'},
+{id:18,topic:'netforce',topicLabel:'Net force',q:'A car: 18 N backward, 38 N forward. What is the net force?',a:'Opposite directions → subtract.<br><br>Net force = 38 − 18 = <strong>20 N forward</strong> (→)<br><br>Unbalanced → car accelerates forward.'},
+{id:19,topic:'netforce',topicLabel:'Net force',q:'A car: 300 N backward, 190 N forward. What is the net force?',a:'Opposite directions → subtract.<br><br>Net force = 300 − 190 = <strong>110 N backward</strong> (←)<br><br>Unbalanced → car decelerates (slows down). The larger force is backward.'},
+{id:20,topic:'netforce',topicLabel:'Net force',q:'A boat: 2500 N upward, 2500 N downward. What is the net force?',a:'Opposite directions, <strong>equal magnitude</strong> → cancel out.<br><br>Net force = 2500 − 2500 = <strong>0 N (balanced)</strong><br><br>The boat stays still or moves at constant speed — no change in motion.'},
+{id:21,topic:'netforce',topicLabel:'Net force',q:'A car: 870 N backward, 870 N forward. What is the net force and what happens?',a:'Net force = 870 − 870 = <strong>0 N (balanced)</strong><br><br>Forces are equal and opposite → the car continues at <strong>constant speed</strong>. There is no acceleration.'},
+{id:22,topic:'netforce',topicLabel:'Net force',q:'How do you calculate net force for forces in the SAME direction?',a:'<strong>Add them together.</strong><br><br>Example: 40 N right + 25 N right = <strong>65 N right</strong><br><br>Forces in the same direction combine to create a larger force in that direction.'},
+{id:23,topic:'netforce',topicLabel:'Net force',q:'How do you calculate net force for forces in OPPOSITE directions?',a:'<strong>Subtract the smaller from the larger.</strong> The net force acts in the direction of the larger force.<br><br>Example: 200 N right − 50 N left = <strong>150 N right</strong>'},
 
-  // FORCE DIAGRAMS
-  {id:23,topic:'diagrams',topicLabel:'Force diagrams',q:'What do force diagram arrows represent?',a:'In force diagrams, arrows show:<br>• <strong>Direction of the arrow</strong> = direction the force acts<br>• <strong>Length of the arrow</strong> = magnitude (size) of the force — a bigger force has a longer arrow<br><br>Each arrow should be labelled with the force name and value (e.g. "Gravity 50 N ↓").'},
-  {id:24,topic:'diagrams',topicLabel:'Force diagrams',q:'Draw a force diagram for a book resting on a table. What forces act on it?',a:'Two forces act on the book:<br><br><strong>1. Weight (gravity)</strong> — arrow pointing downward<br><strong>2. Normal force</strong> — arrow pointing upward (same length)<br><br>The arrows are <strong>equal and opposite</strong> → balanced → the book stays still.'},
-  {id:25,topic:'diagrams',topicLabel:'Force diagrams',q:'Draw a force diagram for a box being pushed across a floor. The push is greater than friction.',a:'Four forces:<br><strong>Weight ↓</strong> and <strong>Normal force ↑</strong> (balanced vertically)<br><strong>Applied force →</strong> (large arrow) and <strong>Friction ←</strong> (smaller arrow)<br><br>Push > Friction → net force to the right → box <strong>accelerates right</strong>. The rightward arrow should be longer than the leftward arrow.'},
-  {id:26,topic:'diagrams',topicLabel:'Force diagrams',q:'What forces act on a skydiver in early free fall (before terminal velocity)?',a:'<strong>Gravity ↓</strong> — large arrow downward (strong force)<br><strong>Air resistance ↑</strong> — small arrow upward (weak at first)<br><br>Gravity > Air resistance → <strong>unbalanced</strong> → skydiver <strong>accelerates downward</strong>.<br><br>As speed increases, air resistance grows. Eventually they become equal → balanced → <strong>terminal velocity</strong> (constant falling speed).'},
-  {id:27,topic:'diagrams',topicLabel:'Force diagrams',q:'What is the most important rule when drawing force diagrams?',a:'Only draw forces that act <strong>ON the object</strong> — not forces the object exerts on other things.<br><br>For example, for a book on a table: draw gravity pulling the book down and the table pushing the book up. Do NOT draw the book pushing down on the table (that acts on the table, not the book).'},
+// GRAVITY & WEIGHT
+{id:24,topic:'gravity',topicLabel:'Gravity & weight',q:'What is the difference between mass and weight?',a:'<strong>Mass</strong> = amount of matter. Measured in <strong>kg</strong>. Stays the <strong>same everywhere</strong>.<br><br><strong>Weight</strong> = gravitational force. Measured in <strong>Newtons (N)</strong>. <strong>Changes</strong> with gravity.<br><br>Weight IS a force. Mass is NOT.'},
+{id:25,topic:'gravity',topicLabel:'Gravity & weight',q:'Does a person falling at 9.8 m/s² have force acting on them? Explain.',a:'<strong>Yes.</strong> Gravity is acting on them, pulling them downward at 9.8 m/s² (Earth\'s gravitational acceleration).<br><br>The force is their <strong>weight</strong> (W = m × g). If they are accelerating downward, the gravitational force is <strong>greater</strong> than air resistance — the forces are unbalanced.'},
+{id:26,topic:'gravity',topicLabel:'Gravity & weight',q:'What is the difference between a skydiver in free fall and one at terminal velocity?',a:'<strong>Free fall:</strong> Gravity > Air resistance → unbalanced → skydiver <strong>accelerates</strong> downward (speeds up).<br><br><strong>Terminal velocity:</strong> Gravity = Air resistance → <strong>balanced</strong> → skydiver falls at <strong>constant speed</strong> (no more acceleration).<br><br>At terminal velocity, the force arrows are the same length.'},
 
-  // MASS & MOTION
-  {id:28,topic:'motion',topicLabel:'Mass & motion',q:'If you apply the same force to a light ball and a heavy ball, which accelerates more?',a:'The <strong>lighter ball</strong> accelerates more.<br><br>For the same force, a smaller mass means a greater change in motion (more acceleration). The heavy ball has more mass resisting the change — this resistance is called <strong>inertia</strong>.'},
-  {id:29,topic:'motion',topicLabel:'Mass & motion',q:'What three things determine how a force changes an object\'s motion?',a:'1. <strong>Magnitude (size)</strong> of the net force — larger force = greater acceleration<br><br>2. <strong>Direction</strong> of the net force — the object accelerates in the same direction as the net force<br><br>3. <strong>Mass</strong> of the object — larger mass = less acceleration for the same force'},
-  {id:30,topic:'motion',topicLabel:'Mass & motion',q:'What happens to an object when the net force on it is zero?',a:'The object does <strong>NOT change its motion</strong>:<br>• If it was stationary → it stays stationary<br>• If it was moving → it keeps moving at the <strong>same speed in the same direction</strong><br><br>Zero net force = balanced forces = no acceleration.'},
-  {id:31,topic:'motion',topicLabel:'Mass & motion',q:'A shopping trolley is harder to push when full than when empty. Explain using the relationship between mass and force.',a:'A full trolley has <strong>more mass</strong> than an empty one. For the same pushing force, a greater mass results in <strong>less acceleration</strong> (less change in motion).<br><br>You need a <strong>greater force</strong> to achieve the same acceleration for the heavier trolley.'},
-  {id:32,topic:'motion',topicLabel:'Mass & motion',q:'What happens when an unbalanced force acts on an object?',a:'The object <strong>accelerates</strong> — it changes its motion. This could mean:<br>• <strong>Speeding up</strong> (force in the direction of motion)<br>• <strong>Slowing down</strong> (force opposite to motion)<br>• <strong>Changing direction</strong> (force at an angle to motion)<br><br>The acceleration is in the <strong>same direction</strong> as the net force.'},
-  {id:33,topic:'motion',topicLabel:'Mass & motion',q:'If you double the net force on an object (keeping mass the same), what happens to the acceleration?',a:'The acceleration <strong>doubles</strong>.<br><br>For the same mass: more force = more acceleration. The relationship is directly proportional — double the force, double the acceleration.'},
-  {id:34,topic:'motion',topicLabel:'Mass & motion',q:'If you double the mass of an object (keeping force the same), what happens to the acceleration?',a:'The acceleration <strong>halves</strong>.<br><br>For the same force: more mass = less acceleration. Mass resists changes in motion (inertia). Double the mass = half the acceleration.'},
+// FORCE DIAGRAMS
+{id:27,topic:'diagrams',topicLabel:'Force diagrams',q:'What two things do the arrows on a free body diagram show?',a:'The arrows show:<br><br><strong>1. Direction</strong> — which way the force is acting (the arrow points in the direction of the force)<br><br><strong>2. Magnitude (size)</strong> — how much force there is (a longer arrow = a bigger force)'},
+{id:28,topic:'diagrams',topicLabel:'Force diagrams',q:'In a force diagram with thrust (D) going right, what would force B (going left) be called?',a:'If D is <strong>thrust</strong> (forward/right), then B (going left/backward) would be <strong>drag (air resistance)</strong>.<br><br>Drag always opposes the direction of motion. If thrust pushes forward, drag pushes backward.'},
+{id:29,topic:'diagrams',topicLabel:'Force diagrams',q:'A box has 4 forces: A (up), B (left), C (down), D (right). D is the largest arrow. Describe the motion.',a:'Since <strong>D (right)</strong> is the largest force, the net force is to the <strong>right</strong>. The object <strong>accelerates to the right</strong>.<br><br>If A and C are equal → balanced vertically (no up/down motion).<br>If D > B → unbalanced horizontally → the object speeds up to the right.'},
+
+// SPEED / DISTANCE / TIME
+{id:30,topic:'speed',topicLabel:'Speed / Distance / Time',q:'What is the formula for speed? What units is it measured in?',a:'<strong>Speed = Distance ÷ Time</strong><br><br>Units: <strong>m/s</strong> (metres per second) or <strong>km/h</strong> (kilometres per hour)<br><br>Formula triangle: Distance on top, Speed and Time on the bottom.<br>D = S × T &nbsp;|&nbsp; T = D ÷ S &nbsp;|&nbsp; S = D ÷ T'},
+{id:31,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A car travels 5 km in 3 hours. Calculate its speed.',a:'S = D ÷ T<br>S = 5 ÷ 3<br><strong>S = 1.67 km/h</strong> (or 1⅔ km/h)'},
+{id:32,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A horse walks at 6 km/h. How far will it walk in 2.5 hours?',a:'D = S × T<br>D = 6 × 2.5<br><strong>D = 15 km</strong>'},
+{id:33,topic:'speed',topicLabel:'Speed / Distance / Time',q:'Terminal velocity is 90 m/s. You\'ve fallen 800 m since reaching terminal velocity. How long have you been at terminal velocity?',a:'T = D ÷ S<br>T = 800 ÷ 90<br><strong>T = 8.89 seconds</strong> (approximately 8.9 s)'},
+{id:34,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A car travels 4 km in 5 minutes. Calculate the average speed in km/h.',a:'Convert time: 5 minutes = 5/60 hours = <strong>1/12 hour</strong><br><br>S = D ÷ T<br>S = 4 ÷ (5/60)<br>S = 4 × 12<br><strong>S = 48 km/h</strong><br><br>OR in m/s: 4000m ÷ 300s = 13.3 m/s'},
+{id:35,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A plane takes 8 hours to cross the Atlantic — a journey of 7000 km. How fast does it travel?',a:'S = D ÷ T<br>S = 7000 ÷ 8<br><strong>S = 875 km/h</strong>'},
+{id:36,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A headless chicken runs 40 m across a field in 10 seconds. Calculate its speed.',a:'S = D ÷ T<br>S = 40 ÷ 10<br><strong>S = 4 m/s</strong>'},
+{id:37,topic:'speed',topicLabel:'Speed / Distance / Time',q:'A sloth climbs a 15 m tree in 10 minutes. How fast does it travel?',a:'Convert: 10 minutes = <strong>600 seconds</strong><br><br>S = D ÷ T<br>S = 15 ÷ 600<br><strong>S = 0.025 m/s</strong><br><br>(That\'s 2.5 cm per second!)'},
+{id:38,topic:'speed',topicLabel:'Speed / Distance / Time',q:'Write out the three versions of the Speed-Distance-Time formula.',a:'<strong>Speed = Distance ÷ Time</strong> (S = D/T)<br><br><strong>Distance = Speed × Time</strong> (D = S × T)<br><br><strong>Time = Distance ÷ Speed</strong> (T = D/S)<br><br>Remember the triangle: D on top, S and T on the bottom.'},
+
+// F = ma
+{id:39,topic:'fma',topicLabel:'F = ma',q:'What is the formula that links force, mass and acceleration?',a:'<strong>F = m × a</strong><br><br>Force (N) = Mass (kg) × Acceleration (m/s²)<br><br>Rearranged:<br>a = F ÷ m (acceleration)<br>m = F ÷ a (mass)'},
+{id:40,topic:'fma',topicLabel:'F = ma',q:'A missile accelerates at 150 m/s². It has a mass of 900 kg. How much force does it have?',a:'F = m × a<br>F = 900 × 150<br><strong>F = 135,000 N</strong> (or 135 kN)'},
+{id:41,topic:'fma',topicLabel:'F = ma',q:'Mr Sanchez falls off a cliff. He has a mass of 90 kg and falls at 10 m/s². What force is acting on him?',a:'F = m × a<br>F = 90 × 10<br><strong>F = 900 N</strong><br><br>This is his weight (the force of gravity pulling him down). Notice W = m × g gives the same answer: 90 × 10 = 900 N.'},
+
+// SIMPLE MACHINES & LEVERS
+{id:42,topic:'levers',topicLabel:'Simple machines',q:'Name the 3 types of simple machines (that your teacher focuses on).',a:'<strong>1. Levers</strong><br><strong>2. Inclined planes (ramps/wedges)</strong><br><strong>3. Pulleys</strong><br><br>Simple machines make work easier by changing the direction, magnitude or distance over which a force is applied.'},
+{id:43,topic:'levers',topicLabel:'Simple machines',q:'What are the 3 parts of a lever?',a:'<strong>1. Effort (Force)</strong> — the force you apply<br><strong>2. Load</strong> — the object being moved or lifted<br><strong>3. Fulcrum (Pivot)</strong> — the fixed point the lever rotates around<br><br>The position of these three parts determines the class of lever.'},
+{id:44,topic:'levers',topicLabel:'Simple machines',q:'What is a 1st class lever? Give 2 examples.',a:'In a <strong>1st class lever</strong>, the <strong>fulcrum is between</strong> the effort and the load.<br><br>Order: <strong>Effort — Fulcrum — Load</strong> (or Load — Fulcrum — Effort)<br><br>Examples: <strong>seesaw, scissors, pliers, crowbar, claw hammer</strong>'},
+{id:45,topic:'levers',topicLabel:'Simple machines',q:'What is a 2nd class lever? Give 2 examples.',a:'In a <strong>2nd class lever</strong>, the <strong>load is between</strong> the fulcrum and the effort.<br><br>Order: <strong>Fulcrum — Load — Effort</strong><br><br>Examples: <strong>wheelbarrow, nutcracker, bottle opener, stapler</strong><br><br>The load is always closer to the fulcrum than the effort.'},
+{id:46,topic:'levers',topicLabel:'Simple machines',q:'What is a 3rd class lever? Give 2 examples.',a:'In a <strong>3rd class lever</strong>, the <strong>effort is between</strong> the fulcrum and the load.<br><br>Order: <strong>Fulcrum — Effort — Load</strong><br><br>Examples: <strong>fishing rod, tweezers/tongs, broom, shovel, human arm</strong><br><br>3rd class levers increase speed and range of motion but require more effort.'},
+{id:47,topic:'levers',topicLabel:'Simple machines',q:'A fishing rod: the handle is the fulcrum, your hand pulls up in the middle, the fish is at the end. What class of lever is it?',a:'<strong>3rd class lever.</strong><br><br>Fulcrum (handle) — Effort (your hand, in the middle) — Load (fish, at the end).<br><br>The effort is between the fulcrum and the load → 3rd class.'},
+{id:48,topic:'levers',topicLabel:'Simple machines',q:'A wheelbarrow: the wheel is the fulcrum, the load is in the middle, you lift at the handles. What class?',a:'<strong>2nd class lever.</strong><br><br>Fulcrum (wheel) — Load (in the tray, middle) — Effort (handles, at the end).<br><br>The load is between the fulcrum and the effort → 2nd class.'},
+{id:49,topic:'levers',topicLabel:'Simple machines',q:'Scissors: the pivot is in the middle, you squeeze the handles, the blades cut the object. What class?',a:'<strong>1st class lever.</strong><br><br>Effort (handles) — Fulcrum (pivot in the middle) — Load (object being cut).<br><br>The fulcrum is between the effort and the load → 1st class.'},
+{id:50,topic:'levers',topicLabel:'Simple machines',q:'A stapler: the hinge is at the back, the staple pushes down in the middle, you press at the front. What class?',a:'<strong>2nd class lever.</strong><br><br>Fulcrum (hinge at back) — Load (staple in middle) — Effort (your hand pressing at front).<br><br>The load is between the fulcrum and the effort → 2nd class.'},
+
+// MOTION & INERTIA
+{id:51,topic:'motion',topicLabel:'Motion & inertia',q:'Define inertia.',a:'<strong>Inertia</strong> is an object\'s <strong>resistance to change in its motion</strong>. An object at rest tends to stay at rest, and an object in motion tends to stay in motion — unless acted on by an unbalanced force.<br><br>The more mass an object has, the more inertia it has (the harder it is to start, stop or change direction).'},
+{id:52,topic:'motion',topicLabel:'Motion & inertia',q:'Which trolley would be more difficult to push around a corner — an empty one or a full one? Explain why.',a:'The <strong>full trolley</strong> is more difficult.<br><br>It has <strong>more mass</strong> and therefore <strong>more inertia</strong> — it resists changes in motion more than the empty trolley. Turning a corner requires changing direction, which requires an unbalanced force. Greater mass needs a <strong>greater force</strong> to achieve the same change in motion.'},
+{id:53,topic:'motion',topicLabel:'Motion & inertia',q:'For the same force, what happens if you increase the mass of the object?',a:'The object accelerates <strong>less</strong>.<br><br>Greater mass = more inertia = more resistance to change. For the same force, a heavier object has a <strong>smaller acceleration</strong> than a lighter one.<br><br>This is from F = ma → if F is constant and m increases, then a must decrease.'},
+{id:54,topic:'motion',topicLabel:'Motion & inertia',q:'For the same mass, what happens if you increase the force?',a:'The object accelerates <strong>more</strong>.<br><br>A greater force produces a greater change in motion (greater acceleration).<br><br>From F = ma → if m is constant and F increases, then a must also increase. Double the force = double the acceleration.'},
 ];
 
-const STORAGE_KEY='yr7phys_ratings_v1';
-let deck=[],currentIdx=0,isFlipped=false,cardRatings={},currentFilter='all';
+const STORAGE_KEY='yr7physexam_ratings_v1';
+let deck=[],currentIdx=0,isFlipped=false,cardRatings={};
 
 function saveRatings(){try{window.storage.set(STORAGE_KEY,JSON.stringify(cardRatings))}catch(e){}try{sessionStorage.setItem(STORAGE_KEY,JSON.stringify(cardRatings))}catch(e){}}
 async function loadRatings(){try{const r=await window.storage.get(STORAGE_KEY);if(r&&r.value){cardRatings=JSON.parse(r.value);return}}catch(e){}try{const s=sessionStorage.getItem(STORAGE_KEY);if(s){cardRatings=JSON.parse(s);return}}catch(e){}cardRatings={}}
 
-function topicBg(t){return{types:'#F0EDFB',balanced:'#EBF3FB',gravity:'#FDF3E3',diagrams:'#E6F5EE',motion:'#FCEAEA'}[t]||'#f5f4f0'}
-function topicFg(t){return{types:'#2d1b69',balanced:'#0d2447',gravity:'#5a3c06',diagrams:'#0d3d25',motion:'#5a1010'}[t]||'#444'}
+function topicBg(t){return{types:'#F0EDFB',balanced:'#EBF3FB',netforce:'#FDF3E3',gravity:'#FCEAEA',diagrams:'#E6F5EE',speed:'#E8F4FD',fma:'#FBF0E8',levers:'#F0EDFB',motion:'#FDF3E3'}[t]||'#f5f4f0'}
+function topicFg(t){return{types:'#2d1b69',balanced:'#0d2447',netforce:'#5a3c06',gravity:'#5a1010',diagrams:'#0d3d25',speed:'#0a3a5a',fma:'#6a3a0a',levers:'#2d1b69',motion:'#5a3c06'}[t]||'#444'}
 
 function countNeeds(){return CARDS.filter(c=>cardRatings[c.id]==='again').length}
 function countKnowit(){return CARDS.filter(c=>cardRatings[c.id]==='good').length}
 function countUnrated(){return CARDS.filter(c=>!cardRatings[c.id]).length}
-function updateCounts(){
-  const n=countNeeds(),k=countKnowit();
-  document.getElementById('needs-count').textContent=n;
-  document.getElementById('knowit-count').textContent=k;
-  document.getElementById('unrated-count').textContent=countUnrated();
-  document.getElementById('st-needs').textContent=n;
-  document.getElementById('st-knowit').textContent=k;
-  document.getElementById('st-total').textContent=n+k;
-}
+function updateCounts(){const n=countNeeds(),k=countKnowit();document.getElementById('needs-count').textContent=n;document.getElementById('knowit-count').textContent=k;document.getElementById('unrated-count').textContent=countUnrated();document.getElementById('st-needs').textContent=n;document.getElementById('st-knowit').textContent=k;document.getElementById('st-total').textContent=n+k}
 
 function setFilter(filter,btn){
-  currentFilter=filter;
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active','active-n','active-k'));
-  if(filter==='needs')btn.classList.add('active-n');
-  else if(filter==='knowit')btn.classList.add('active-k');
-  else btn.classList.add('active');
-  if(filter==='needs'){deck=CARDS.filter(c=>cardRatings[c.id]==='again');if(!deck.length){alert('No "Needs work" cards yet!');deck=[...CARDS];}}
-  else if(filter==='knowit'){deck=CARDS.filter(c=>cardRatings[c.id]==='good');if(!deck.length){alert('No "Know it!" cards yet!');deck=[...CARDS];}}
-  else if(filter==='unrated'){deck=CARDS.filter(c=>!cardRatings[c.id]);if(!deck.length){alert('All rated! Showing all.');deck=[...CARDS];}}
+  if(filter==='needs')btn.classList.add('active-n');else if(filter==='knowit')btn.classList.add('active-k');else btn.classList.add('active');
+  if(filter==='needs'){deck=CARDS.filter(c=>cardRatings[c.id]==='again');if(!deck.length){alert('No "Needs work" cards yet!');deck=[...CARDS]}}
+  else if(filter==='knowit'){deck=CARDS.filter(c=>cardRatings[c.id]==='good');if(!deck.length){alert('No "Know it!" cards yet!');deck=[...CARDS]}}
+  else if(filter==='unrated'){deck=CARDS.filter(c=>!cardRatings[c.id]);if(!deck.length){alert('All rated!');deck=[...CARDS]}}
   else if(filter==='all')deck=[...CARDS];
   else deck=CARDS.filter(c=>c.topic===filter);
   shuffle(deck);currentIdx=0;isFlipped=false;
-  document.getElementById('done-screen').style.display='none';
-  document.getElementById('card-area').style.display='block';
-  document.getElementById('card-inner').classList.remove('flipped');
-  document.getElementById('answer-input').value='';
+  document.getElementById('done-screen').style.display='none';document.getElementById('card-area').style.display='block';
+  document.getElementById('card-inner').classList.remove('flipped');document.getElementById('answer-input').value='';
   showCard();updateProgress();
 }
-
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
-
 function showCard(){
-  if(!deck.length)return;
-  const c=deck[currentIdx];
-  document.getElementById('topic-badge').textContent=c.topicLabel;
-  document.getElementById('topic-badge').style.cssText=`background:${topicBg(c.topic)};color:${topicFg(c.topic)}`;
+  if(!deck.length)return;const c=deck[currentIdx];
+  document.getElementById('topic-badge').textContent=c.topicLabel;document.getElementById('topic-badge').style.cssText=`background:${topicBg(c.topic)};color:${topicFg(c.topic)}`;
   document.getElementById('card-q').textContent=c.q;
-  document.getElementById('topic-badge-back').textContent=c.topicLabel;
-  document.getElementById('topic-badge-back').style.cssText=`background:${topicBg(c.topic)};color:${topicFg(c.topic)}`;
-  document.getElementById('card-a').innerHTML=c.a;
-  document.getElementById('card-num').textContent=(currentIdx+1)+' of '+deck.length;
-  const r=cardRatings[c.id];
-  document.getElementById('card-area').className='card-area'+(r==='again'?' outline-again':r==='good'?' outline-good':'');
-  document.getElementById('btn-prev').disabled=currentIdx===0;
-  document.getElementById('btn-next').disabled=currentIdx===deck.length-1;
-  requestAnimationFrame(()=>{
-    const f=document.getElementById('card-front'),b=document.getElementById('card-back'),s=document.getElementById('card-spacer');
-    s.innerHTML=document.getElementById('card-a').innerHTML;
-    s.style.minHeight=Math.max(200,f.scrollHeight,b.scrollHeight)+'px';
-  });
+  document.getElementById('topic-badge-back').textContent=c.topicLabel;document.getElementById('topic-badge-back').style.cssText=`background:${topicBg(c.topic)};color:${topicFg(c.topic)}`;
+  document.getElementById('card-a').innerHTML=c.a;document.getElementById('card-num').textContent=(currentIdx+1)+' of '+deck.length;
+  const r=cardRatings[c.id];document.getElementById('card-area').className='card-area'+(r==='again'?' outline-again':r==='good'?' outline-good':'');
+  document.getElementById('btn-prev').disabled=currentIdx===0;document.getElementById('btn-next').disabled=currentIdx===deck.length-1;
+  requestAnimationFrame(()=>{const s=document.getElementById('card-spacer');s.innerHTML=document.getElementById('card-a').innerHTML;s.style.minHeight=Math.max(200,document.getElementById('card-front').scrollHeight,document.getElementById('card-back').scrollHeight)+'px'});
 }
-
 function flipCard(){
-  if(isFlipped)return;isFlipped=true;
-  const typed=document.getElementById('answer-input').value.trim();
-  const d=document.getElementById('your-answer-display');
+  if(isFlipped)return;isFlipped=true;const typed=document.getElementById('answer-input').value.trim();const d=document.getElementById('your-answer-display');
   if(typed){d.textContent=typed;d.classList.remove('empty')}else{d.textContent='(no answer written)';d.classList.add('empty')}
   document.getElementById('card-inner').classList.add('flipped');
-  requestAnimationFrame(()=>{const b=document.getElementById('card-back'),s=document.getElementById('card-spacer');s.style.minHeight=Math.max(200,b.scrollHeight)+'px'});
+  requestAnimationFrame(()=>{document.getElementById('card-spacer').style.minHeight=Math.max(200,document.getElementById('card-back').scrollHeight)+'px'});
 }
-function unflipCard(){
-  if(!isFlipped)return;isFlipped=false;
-  document.getElementById('card-inner').classList.remove('flipped');
-  requestAnimationFrame(()=>{const f=document.getElementById('card-front'),s=document.getElementById('card-spacer');s.style.minHeight=Math.max(200,f.scrollHeight)+'px'});
-}
-
-function rate(r){
-  const c=deck[currentIdx];cardRatings[c.id]=r;saveRatings();updateCounts();
-  document.getElementById('card-area').className='card-area'+(r==='again'?' outline-again':' outline-good');
-  setTimeout(()=>{if(currentIdx<deck.length-1)nextCard();else showDone()},300);
-}
-
+function unflipCard(){if(!isFlipped)return;isFlipped=false;document.getElementById('card-inner').classList.remove('flipped');requestAnimationFrame(()=>{document.getElementById('card-spacer').style.minHeight=Math.max(200,document.getElementById('card-front').scrollHeight)+'px'})}
+function rate(r){cardRatings[deck[currentIdx].id]=r;saveRatings();updateCounts();document.getElementById('card-area').className='card-area'+(r==='again'?' outline-again':' outline-good');setTimeout(()=>{if(currentIdx<deck.length-1)nextCard();else showDone()},300)}
 function nextCard(){if(currentIdx<deck.length-1){currentIdx++;resetToFront()}else showDone()}
 function prevCard(){if(currentIdx>0){currentIdx--;resetToFront()}}
 function resetToFront(){isFlipped=false;document.getElementById('card-inner').classList.remove('flipped');document.getElementById('answer-input').value='';showCard();updateProgress()}
-
-function updateProgress(){
-  const rated=deck.filter(c=>cardRatings[c.id]).length;
-  const pct=deck.length?Math.round(rated/deck.length*100):0;
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-label').textContent=rated+' / '+deck.length+' rated';
-}
-
+function updateProgress(){const rated=deck.filter(c=>cardRatings[c.id]).length;const pct=deck.length?Math.round(rated/deck.length*100):0;document.getElementById('prog-fill').style.width=pct+'%';document.getElementById('prog-label').textContent=rated+' / '+deck.length+' rated'}
 function showDone(){
-  document.getElementById('card-area').style.display='none';
-  document.getElementById('card-num').textContent='';
-  const ds=document.getElementById('done-screen');ds.style.display='block';
-  const n=countNeeds(),k=countKnowit();
-  document.getElementById('done-title').textContent=k>n?'🎉 Great work!':'💪 Keep going!';
-  document.getElementById('done-msg').textContent=k+' card'+(k!==1?'s':'')+' in Know it! and '+n+' in Needs work.'+(n>0?' Review the Needs work pile to lock them in.':'');
+  document.getElementById('card-area').style.display='none';document.getElementById('card-num').textContent='';document.getElementById('done-screen').style.display='block';
+  const n=countNeeds(),k=countKnowit();document.getElementById('done-title').textContent=k>n?'🎉 Great work!':'💪 Keep going!';
+  document.getElementById('done-msg').textContent=k+' in Know it!, '+n+' in Needs work.'+(n>0?' Review the Needs work pile!':'');
   document.getElementById('btn-do-needs').style.display=n>0?'':'none';
 }
 function restartDeck(){document.getElementById('done-screen').style.display='none';document.getElementById('card-area').style.display='block';shuffle(deck);currentIdx=0;resetToFront()}
-
 async function init(){await loadRatings();deck=[...CARDS];shuffle(deck);showCard();updateCounts();updateProgress()}
 init();
 </script>
